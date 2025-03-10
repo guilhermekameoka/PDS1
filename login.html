@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Saúde Sênior</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen overflow-hidden">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <!-- Logo e título -->
+        <div class="sm:mx-auto sm:w-full sm:max-w-xs">
+            <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Entrar</h2>
+        </div>
+
+        <!-- Seleção de perfil -->
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-xs">
+            <div class="flex justify-center gap-6">
+                <div class="flex flex-col items-center">
+                    <img src="assets/IMG-Medico.png" alt="Médico" class="w-24 h-24 rounded-lg border">
+                    <span class="text-gray-700 mt-2 text-sm font-medium">Médico(a)</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="assets/IMG-Cuidador.png" alt="Cuidador" class="w-24 h-24 rounded-lg border">
+                    <span class="text-gray-700 mt-2 text-sm font-medium">Cuidador(a)</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mt-6">
+                <img src="assets/IMG-Idoso.png" alt="Idoso" class="w-25 h-24 rounded-lg border">
+                <span class="text-gray-700 mt-2 text-sm font-medium">Idoso(a)</span>
+            </div>
+        </div>
+
+        <!-- Formulário de Login -->
+        <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-xs space-y-4 p-6">
+            <input type="email" placeholder="Email"
+                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004251] focus:border-[#004251]">
+            
+            <div class="relative">
+                <input type="password" placeholder="Senha"
+                    class="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004251] focus:border-[#004251]">
+                <span class="absolute inset-y-0 right-4 flex items-center text-gray-500 cursor-pointer">👁</span>
+            </div>
+
+            <a href="#" class="text-sm text-[#004251] hover:underline">Esqueceu a senha?</a>
+
+            <button class="flex w-full justify-center rounded-md bg-[#004251] px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-[#003040] focus:outline-none focus:ring-2 focus:ring-[#004251]">
+                Login
+            </button>
+        </div>
+
+        <!-- Cadastro -->
+        <p class="mt-4 text-sm text-gray-600 text-center">Não possui uma conta? <a href="#" class="text-[#004251] hover:underline">Se registrar</a></p>
+    </div>
+</body>
+
+</html>
