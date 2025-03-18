@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+h4{
+    font-family: "Raleway", sans-serif;
+    font-size: 4,18vw;
+
+    line-height: 32px;
+    letter-spacing: -0.5px;
+}
+
+
+#home-container{
+    padding: 0 2.787vw;
+}
+
+#header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-top: 10px;
+}
+
+#header #profile a{
+    background-color: #289DD2;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50px;
+}
+
+#header #profile a img{
+
+}
