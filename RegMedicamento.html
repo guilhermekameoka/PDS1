@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Registro de Medicamento</title>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+      <div class="flex items-center justify-between mb-4">
+        <a href="./medico.html">
+          <button class="text-gray-600 hover:text-gray-800">←</button>
+        </a>
+        <h1 class="text-xl font-bold text-center flex-grow">Registro de Medicamento</h1>
+        <img src="./assets/Logo sem fundo.png" alt="Saúde Sênior" class="w-12" />
+      </div>
+
+      <form class="space-y-4">
+        <input
+          type="text"
+          placeholder="Nome do Medicamento"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="date"
+          placeholder="Data Inicial"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="date"
+          placeholder="Data Final"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          placeholder="Frequência (Mensal, Semanal, Diário)"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="time"
+          placeholder="Hora"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          placeholder="Dose"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <button
+          type="submit"
+          class="w-full bg-blue-800 text-white p-3 rounded-lg hover:bg-blue-900"
+        >
+          Registrar
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
