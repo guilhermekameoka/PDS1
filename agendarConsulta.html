@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agendar Consulta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .placeholder-label {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #a0aec0;
+        pointer-events: none;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .relative input:focus + .placeholder-label,
+      .relative input:not(:placeholder-shown) + .placeholder-label,
+      .relative input.filled + .placeholder-label {
+        top: 4px;
+        left: 10px;
+        font-size: 12px;
+        color: #4a5568;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div class="flex justify-between items-center mb-4">
+        <a href="./medico.html">
+          <button class="text-gray-600 text-xl">&#8592;</button>
+        </a>
+        <h2 class="text-2xl font-bold">Agendar Consulta</h2>
+        <img src="./assets/Logo sem fundo.png" alt="Saúde Sênior" class="w-20" />
+      </div>
+
+      <select class="w-full border border-gray-300 p-2 rounded-md mb-2">
+        <option>Especialidade Médica</option>
+        <option>Cardiologia</option>
+        <option>Dermatologia</option>
+        <option>Ortopedia</option>
+        <option>Pediatria</option>
+        <option>Oftalmologia</option>
+        <option>Ginecologia</option>
+      </select>
+      <select class="w-full border border-gray-300 p-2 rounded-md mb-2">
+        <option>Hospital</option>
+      </select>
+      <select class="w-full border border-gray-300 p-2 rounded-md mb-2">
+        <option>Médico</option>
+      </select>
+
+      <div class="relative mb-2">
+        <input
+          type="date"
+          id="data"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent"
+          placeholder=" "
+        />
+        <label for="data" class="placeholder-label">Data</label>
+      </div>
+
+      <div class="relative mb-2">
+        <input
+          type="time"
+          id="hora"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent"
+          placeholder=" "
+        />
+        <label for="hora" class="placeholder-label">Hora</label>
+      </div>
+
+      <input
+        type="text"
+        placeholder="Rua"
+        class="w-full border border-gray-300 p-2 rounded-md mb-2"
+      />
+      <textarea
+        placeholder="Observações"
+        class="w-full border border-gray-300 p-2 rounded-md mb-2"
+      ></textarea>
+
+      <button
+        type="submit"
+        class="w-full bg-blue-800 text-white p-3 rounded-lg hover:bg-blue-900"
+      >
+        Agendar
+      </button>
+    </div>
+  </body>
+</html>

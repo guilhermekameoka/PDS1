@@ -1,8 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
     const emailInput = document.querySelector("input[type='email']");
     const passwordInput = document.querySelector("input[type='password']");
-    const loginButton = document.querySelector("button");
-    const togglePassword = document.querySelector(".relative span");
+    const loginButton = document.getElementById("loginButton");
+    const togglePassword = document.querySelector(".relative .toggle-password");
+    const perfilMedico = document.querySelector("img[alt='Médico']");
+    const perfilIdoso = document.querySelector("img[alt='Idoso']");
+    const perfilCuidador = document.querySelector("img[alt='Cuidador']");
+
+    // Função para remover a borda de todos os perfis
+    function removerBordaPerfis() {
+        perfilMedico.classList.remove("border-4", "border-blue-500");
+        perfilIdoso.classList.remove("border-4", "border-blue-500");
+        perfilCuidador.classList.remove("border-4", "border-blue-500");
+    }
+
+    // Adiciona evento para destacar a seleção do Médico
+    perfilMedico.addEventListener("click", function () {
+        removerBordaPerfis();
+        perfilMedico.classList.add("border-4", "border-blue-500");
+    });
+
+    // Adiciona evento para destacar a seleção do Idoso
+    perfilIdoso.addEventListener("click", function () {
+        removerBordaPerfis();
+        perfilIdoso.classList.add("border-4", "border-blue-500");
+    });
+
+    // Adiciona evento para destacar a seleção do Cuidador
+    perfilCuidador.addEventListener("click", function () {
+        removerBordaPerfis();
+        perfilCuidador.classList.add("border-4", "border-blue-500");
+    });
 
     // Função para validar e-mail
     function validarEmail(email) {
@@ -54,8 +82,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Se tudo estiver válido, pode enviar os dados (simulação)
         if (emailValido && senhaValida) {
-            alert("Login realizado com sucesso!");
-            // Aqui poderia ser feita uma requisição para um backend
+            const alertBox = document.createElement("div");
+            alertBox.textContent = "Login realizado com sucesso!";
+            alertBox.classList.add("fixed", "top-0", "left-1/2", "transform", "-translate-x-1/2", "bg-green-500", "text-white", "p-2", "rounded");
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+                window.location.href = "login.html"; // Redireciona para a página login.html
+            }, 3000); // Remove o alerta após 3 segundos
         }
     });
 
