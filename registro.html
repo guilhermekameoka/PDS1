@@ -1,45 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Adicionar Registro</title>
-  </head>
-  <body class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-      <div class="flex justify-between items-center mb-4">
-        <a href="./medico.html">
-          <button class="text-gray-600 text-xl">&#8592;</button>
-        </a>
-        <img src="assets/Logo sem fundo.png" alt="Saúde Sênior" class="h-24" />
-      </div>
-      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
-        Adicionar Registro
-      </h1>
-      <form>
-        <div class="mb-4">
-          <label for="nome" class="block text-gray-700">Nome Registro</label>
-          <input
-            type="text"
-            id="nome"
-            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div class="mb-4">
-          <label for="observacoes" class="block text-gray-700">Observações</label>
-          <textarea
-            id="observacoes"
-            class="w-full p-3 border rounded-md h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-blue-900 text-white py-3 rounded-md hover:bg-blue-800"
-        >
-          Adicionar
-        </button>
-      </form>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Adicionar Registro</title>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+    <div class="flex justify-between items-center mb-4">
+      <a href="./medico.html">
+        <button class="text-gray-600 text-xl">&#8592;</button>
+      </a>
+      <img src="assets/Logo sem fundo.png" alt="Saúde Sênior" class="h-24" />
     </div>
-  </body>
+    <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
+      Adicionar Registro
+    </h1>
+    <form>
+      <div class="mb-4">
+        <label for="nome" class="block text-gray-700">Nome Registro</label>
+        <input type="text" id="nome"
+          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div class="mb-4">
+        <label for="observacoes" class="block text-gray-700">Observações</label>
+        <textarea id="observacoes"
+          class="w-full p-3 border rounded-md h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      </div>
+      <button type="submit" class="w-full bg-blue-900 text-white py-3 rounded-md hover:bg-blue-800">
+        Adicionar
+      </button>
+    </form>
+  </div>
+</body>
+
 </html>
