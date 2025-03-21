@@ -8,6 +8,11 @@
 - Esdras  
 - Pedro Alexandre  
 - Guilherme Rafael  
+
+[Telas](https://www.figma.com/design/xOfVNmNg7hMd7MRAj29pjU/IHC?node-id=6-0&m=dev&t=f4OE9q94xtLv6NHp-1)
+  
+[Documentos](https://ufubr-my.sharepoint.com/:w:/g/personal/guilherme_cerqueira_ufu_br/ET1Nuk7voaZEl4WjN0I6fIgBzidfA1-Ss762blLxvqqlHg?e=0UtQPx)
+
   
 # Sobre
 O sistema proposto busca resolver o problema da organização e monitoramento das necessidades dos idosos por meio de uma plataforma mobile intuitiva, conectando cuidadores, médicos e os próprios idosos.    
