@@ -20,7 +20,7 @@ Dessa forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 
 <img src="./assets/visao geral.png">  
 
-- **Front-end:** React para garantir compatibilidade entre Android e iOS.
+- **Front-end:** HTML5, TailwindCSS
 
 - **Back-end:** Node.js para gerenciar a lógica do sistema e as APIs de integração. 
 
