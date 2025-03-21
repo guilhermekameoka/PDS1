@@ -23,7 +23,13 @@ Dessa forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 
 # Ambiente de desenvolvimento
 
-<img src="./assets/visao geral.png">  
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+
+<!-- <img src="./assets/visao geral.png">   -->
 
 - **Front-end:** HTML5, TailwindCSS
 
