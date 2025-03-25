@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const emailInput = document.querySelector("input[type='email']");
     const passwordInput = document.querySelector("input[type='password']");
     const loginButton = document.querySelector("button"); // Seleciona o botão de login
-    const togglePassword = document.querySelector(".relative .toglle-password"); // Ícone do olho 👁
+    const togglePassword = document.querySelector(".relative span"); // Ícone do olho 👁
     const perfilMedico = document.querySelector("img[alt='Médico']");
     const perfilIdoso = document.querySelector("img[alt='Idoso']");
     const perfilCuidador = document.querySelector("img[alt='Cuidador']");
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Verifica se já existe uma mensagem de erro associada ao input
         let errorSpan = input.nextElementSibling;
-        if (!errorSpan || !errorSpan.classList.contains("error-message")) {
+        if (!errorSpan?.classList.contains("error-message")) {
             errorSpan = document.createElement("span");
             errorSpan.classList.add("text-red-500", "text-xs", "error-message");
             input.parentNode.insertBefore(errorSpan, input.nextSibling);
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         input.classList.add("border-gray-300");
 
         let errorSpan = input.nextElementSibling;
-        if (errorSpan && errorSpan.classList.contains("error-message")) {
+        if (errorSpan?.classList.contains("error-message")) {
             errorSpan.remove();
         }
     }
@@ -86,15 +86,30 @@ document.addEventListener("DOMContentLoaded", function () {
         // Se tudo estiver válido, redireciona para a página do médico
         if (emailValido && senhaValida) {
             const alertBox = document.createElement("div");
-            alertBox.textContent = "Login realizado com sucesso!";
-            alertBox.classList.add("fixed", "top-0", "left-1/2", "transform", "-translate-x-1/2", "bg-green-500", "text-white", "p-2", "rounded");
+            alertBox.classList.add("fixed", "top-0", "left-1/2", "transform", "-translate-x-1/2", "p-2", "rounded");
+
+            if (perfilCuidador.classList.contains("border-blue-500")) {
+            alertBox.textContent = "Este Login está Temporariamente desativado!";
+            alertBox.classList.add("bg-red-500", "text-white");
             document.body.appendChild(alertBox);
 
             setTimeout(() => {
                 alertBox.remove();
-                window.location.href = "medico.html"; // Redireciona para a página login.html
-            }, 3000); // Remove o alerta após 3 segundos
-            // window.location.href = "medico.html";
+            }, 3000);
+            } else {
+            alertBox.textContent = "Login realizado com sucesso! ✓";
+            alertBox.classList.add("bg-green-500", "text-white");
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+                if (perfilMedico.classList.contains("border-blue-500")) {
+                window.location.href = "medico.html";
+                } else if (perfilIdoso.classList.contains("border-blue-500")) {
+                window.location.href = "idoso.html";
+                }
+            }, 3000);
+            }
         }
     });
 
