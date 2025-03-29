@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Lista de Medicamentos</title>
+</head>
+
+<body class="bg-blue-200 flex justify-center items-center min-h-screen">
+
+  <div class="w-96 sm:w-full bg-white p-6 rounded-lg shadow-md">
+    <a href="./idoso.html" class="mb-4">
+        <button class="text-gray-600 hover:text-gray-800"><img src="assets/arrrowBack.png" alt="arrrowBack" class="h-6 w-6"></button>
+      </a>
+    <div class="bg-blue-200 p-4 rounded-lg flex items-center justify-center space-x-3"> 
+      <h1 class="text-xl font-bold inline-block">Medicamentos</h1>
+      <img src="assets/Saude Senior Illustration.png" alt="Estetoscópio" class="w-20 h-20 inline-block" />
+    </div>
+
+    <!-- Campo de pesquisa -->
+    <div class="mt-4">
+      <input type="text" placeholder="Pesquisar" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none" />
+    </div>
+
+    <!-- Lista de medicamentos -->
+    <div class="mt-6 space-y-4">
+      <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold text-gray-800">Insulina</h2>
+        <p class="text-sm text-gray-600">Dosagem: 10UI por dose, ate 3x por dia, após as refeições </p>
+      </div>
+
+      <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold text-gray-800">Rivotril</h2>
+        <p class="text-sm text-gray-600">Dosagem: 2 comprimidos por dose, de 8 em 8 horas</p>
+      </div>
+
+      <!-- Outros medicamentos podem ser adicionados aqui -->
+    </div>
+
+    <div class="fixed bottom-6 right-6">
+      <a class="bg-yellow-400 rounded-full w-12 h-12 shadow-md hover:bg-yellow-500 flex items-center justify-center"
+        href="./agendarConsultaIdoso.html">
+        <span class="text-3xl">+</span>
+      </a>
+    </div>
+  </div>
+
+</body>
+
+</html>
