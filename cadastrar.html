@@ -13,55 +13,66 @@
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
     <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md relative">
-    <div class="flex justify-between items-center mb-4 relative">
+      <div class="flex justify-between items-center mb-4 relative">
         <a href="./home.html">
-        <button class="text-gray-600 text-xl"><img src="assets/arrrowBack.png" alt="arrrowBack" class="h-6 w-6"></button>
+          <button class="text-gray-600 text-xl"><img src="assets/arrrowBack.png" alt="arrrowBack"
+              class="h-6 w-6"></button>
         </a>
         <h1 class="absolute left-1/2 transform -translate-x-1/2 text-2xl font-bold text-gray-600">
-        Cadastrar</h1>
+          Cadastrar</h1>
         <img src="assets/Logo sem fundo.png" alt="Saúde Sênior" class="h-24" />
+      </div>
+      <form id="cadastroForm">
+        <div class="mb-4">
+          <input type="text" name="nome" placeholder="Nome Completo" autocomplete="name"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <div class="mb-4">
+          <input type="number" name="idade" placeholder="Idade" min="1" max="120" autocomplete="bday"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <div class="mb-4">
+          <input type="email" name="email" placeholder="E-mail" autocomplete="email"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <div class="mb-4">
+          <input type="tel" name="telefone" placeholder="Telefone" autocomplete="tel"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <div class="mb-4">
+          <input type="text" name="cep" placeholder="CEP" autocomplete="postal-code"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <div class="mb-4">
+          <input type="text" name="rua" placeholder="Rua" autocomplete="address-line1"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <div class="mb-4">
+          <input type="number" name="numero" placeholder="Número" autocomplete="address-line2"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <div class="mb-4">
+          <input type="text" name="cidade" placeholder="Cidade" autocomplete="address-level2"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <div class="mb-4">
+          <input type="password" name="senha" placeholder="Senha"
+            class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400"
+            required />
+        </div>
+        <button type="submit" class="w-full bg-blue-900 text-white py-3 rounded-md hover:bg-blue-800">
+          Cadastrar-se
+        </button>
+      </form>
     </div>
-    <form>
-      <div class="mb-4">
-        <input type="text" id="nome" placeholder="Nome Completo"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-blue-400" />
-      </div>
-      <div class="mb-4">
-        <input type="text" id="idade" placeholder="Idade"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  placeholder:text-blue-400" />
-      </div>
-      <div class="mb-4">
-        <input type="text" id="email" placeholder="E-mail"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  placeholder:text-blue-400" />
-      </div>
-      <div class="mb-4">
-        <input type="text" id="telefone" placeholder="Telefone"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  placeholder:text-blue-400" />
-      </div>
-      <div class="mb-4">
-        <input type="text" id="cep" placeholder="CEP"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  placeholder:text-blue-400" />
-      </div>
-      <div class="mb-4">
-        <input type="text" id="rua" placeholder="Rua"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  placeholder:text-blue-400" />
-      </div>
-      <div class="mb-4">
-        <input type="text" id="numero" placeholder="Número"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  placeholder:text-blue-400" />
-      </div>
-      <div class="mb-4">
-        <input type="text" id="cidade" placeholder="Cidade"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  placeholder:text-blue-400" />
-      </div>
-      <div class="mb-4">
-        <input type="text" id="senha" placeholder="Senha"
-          class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500  placeholder:text-blue-400" />
-      </div>
-      <button type="button" onclick="window.location.href='./login.html'" class="w-full bg-blue-900 text-white py-3 rounded-md hover:bg-blue-800">
-        Cadastrar-se
-      </button>
-    </form>
   </div>
 </body>
 
