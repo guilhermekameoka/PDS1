@@ -11,7 +11,7 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-const cadastroRoutes = require("./cadastro");
+const cadastroRoutes = require("./routes/cadastro");
 app.use("/cadastro", cadastroRoutes);
 
 // Inicia o servidor na porta especificada

@@ -104,9 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 alertBox.remove();
                 if (perfilMedico.classList.contains("border-blue-500")) {
-                window.location.href = "medico.html";
+                window.location.href = "../medico/medico.html";
                 } else if (perfilIdoso.classList.contains("border-blue-500")) {
-                window.location.href = "idoso.html";
+                window.location.href = "../idoso/idoso.html";
                 }
             }, 3000);
             }

@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             setTimeout(() => {
                 alertBox.remove();
-                window.location.href = "login.html"; // Redireciona para a página login.html
+                window.location.href = "./login.html"; // Redireciona para a página login.html
             }, 3000); // Remove o alerta após 3 segundos
         }
     });
