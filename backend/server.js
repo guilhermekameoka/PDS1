@@ -1,0 +1,55 @@
+require('dotenv').config();
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+// npm install express mysql2 dotenv cors body-parser
+
+const app = express();
+const port = 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
+// Configuração do MySQL
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
+
+// Conectar ao banco de dados
+db.connect(err => {
+    if (err) {
+        console.error('Erro ao conectar ao MySQL:', err);
+    } else {
+        console.log('Conectado ao MySQL');
+    }
+});
+
+// Rota para cadastro
+app.post('/cadastro', (req, res) => {
+    const { nome, idade, email, telefone, cep, rua, numero, cidade, senha } = req.body;
+
+    if (!nome || !idade || !email || !senha) {
+        return res.status(400).json({ error: 'Campos obrigatórios não preenchidos' });
+    }
+
+    const sql = `INSERT INTO usuarios (nome, idade, email, telefone, cep, rua, numero, cidade, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [nome, idade, email, telefone, cep, rua, numero, cidade, senha];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Erro ao inserir no banco:', err);
+            return res.status(500).json({ error: 'Erro ao cadastrar usuário' });
+        }
+        res.status(201).json({ message: 'Usuário cadastrado com sucesso', id: result.insertId });
+    });
+});
+
+// Iniciar o servidor
+app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
+});
