@@ -1,44 +1,82 @@
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("cadastroForm")
-    .addEventListener("submit", async function (event) {
-      event.preventDefault();
+  const form = document.getElementById("cadastroForm");
 
-      const usuario = {
-        nome: document.getElementById("nome").value,
-        idade: document.getElementById("idade").value,
-        email: document.getElementById("email").value,
-        telefone: document.getElementById("telefone").value,
-        cep: document.getElementById("cep").value,
-        rua: document.getElementById("rua").value,
-        numero: document.getElementById("numero").value,
-        cidade: document.getElementById("cidade").value,
-        senha: document.getElementById("senha").value,
-      };
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-      try {
-        const response = await fetch("http://localhost:3000/cadastro", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(usuario),
-        });
+    const usuario = obterDadosFormulario();
 
-        const data = await response.json();
-        if (response.ok) {
-          alert("Cadastro realizado com sucesso!");
-          window.location.href = "../home.html";
-        } else if (response.status === 400) {
-          alert(
-            "Erro: Dados inválidos. Por favor, verifique as informações e tente novamente."
-          );
-        } else {
-          alert("Erro: " + data.error);
-        }
-      } catch (error) {
-        console.error("Erro ao enviar dados:", error);
-        alert("Erro ao cadastrar.");
+    if (!validarCampos(usuario)) {
+      alert("Preencha todos os campos corretamente.");
+      return;
+    }
+
+    try {
+      const response = await enviarCadastro(usuario);
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "../home.html";
+      } else {
+        alert("Erro: " + (data.error || "Erro desconhecido"));
       }
+    } catch (error) {
+      console.error("Erro ao enviar dados:", error);
+      alert("Erro ao cadastrar. Verifique sua conexão.");
+    }
+  });
+
+  function obterDadosFormulario() {
+    return {
+      nome: document.querySelector("[name=nome]").value.trim(),
+      idade: Number(document.querySelector("[name=idade]").value),
+      email: document.querySelector("[name=email]").value.trim(),
+      telefone: document.querySelector("[name=telefone]").value.trim(),
+      cep: document.querySelector("[name=cep]").value.trim(),
+      rua: document.querySelector("[name=rua]").value.trim(),
+      numero: Number(document.querySelector("[name=numero]").value),
+      cidade: document.querySelector("[name=cidade]").value.trim(),
+      senha: document.querySelector("[name=senha]").value,
+    };
+  }
+
+  function validarCampos(usuario) {
+    if (
+      !usuario.nome ||
+      !usuario.email ||
+      !usuario.telefone ||
+      !usuario.cep ||
+      !usuario.rua ||
+      !usuario.numero ||
+      !usuario.cidade ||
+      !usuario.senha
+    ) {
+      return false;
+    }
+
+    if (usuario.idade < 1 || usuario.idade > 120 || isNaN(usuario.idade)) {
+      return false;
+    }
+
+    if (!usuario.email.includes("@")) {
+      return false;
+    }
+
+    if (usuario.senha.length < 6) {
+      return false;
+    }
+
+    return true;
+  }
+
+  async function enviarCadastro(usuario) {
+    return fetch("http://localhost:3000/cadastro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(usuario),
     });
+  }
 });
