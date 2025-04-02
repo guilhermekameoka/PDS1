@@ -11,51 +11,49 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    try {
-      const response = await enviarCadastro(usuario);
-      const data = await response.json();
+      try {
+        const response = await enviarCadastro(usuario);
+        let data;
+        try {
+          data = await response.json();
+        } catch (error) {
+          data = {}; // Caso a resposta não seja um JSON válido
+        }
 
-      if (response.ok) {
-        alert("Cadastro realizado com sucesso!");
-        window.location.href = "../home.html";
-      } else {
-        alert("Erro: " + (data.error || "Erro desconhecido"));
+        if (response.ok) {
+          alert("Cadastro realizado com sucesso!");
+          window.location.href = "../home.html";
+        } else {
+          alert("Erro: " + (data.error || "Ocorreu um erro inesperado"));
+        }
+      } catch (error) {
+        console.error("Erro ao enviar dados:", error);
+        alert("Erro ao cadastrar. Verifique sua conexão.");
       }
-    } catch (error) {
-      console.error("Erro ao enviar dados:", error);
-      alert("Erro ao cadastrar. Verifique sua conexão.");
-    }
   });
 
   function obterDadosFormulario() {
     return {
       nome: document.querySelector("[name=nome]").value.trim(),
-      idade: Number(document.querySelector("[name=idade]").value),
+      idade: document.querySelector("[name=idade]").value.trim(),
       email: document.querySelector("[name=email]").value.trim(),
       telefone: document.querySelector("[name=telefone]").value.trim(),
       cep: document.querySelector("[name=cep]").value.trim(),
       rua: document.querySelector("[name=rua]").value.trim(),
-      numero: Number(document.querySelector("[name=numero]").value),
+      numero: document.querySelector("[name=numero]").value.trim(),
       cidade: document.querySelector("[name=cidade]").value.trim(),
-      senha: document.querySelector("[name=senha]").value,
+      senha: document.querySelector("[name=senha]").value.trim(),
     };
   }
 
   function validarCampos(usuario) {
-    if (
-      !usuario.nome ||
-      !usuario.email ||
-      !usuario.telefone ||
-      !usuario.cep ||
-      !usuario.rua ||
-      !usuario.numero ||
-      !usuario.cidade ||
-      !usuario.senha
-    ) {
-      return false;
+    for (const chave in usuario) {
+      if (!usuario[chave]) {
+        return false;
+      }
     }
 
-    if (usuario.idade < 1 || usuario.idade > 120 || isNaN(usuario.idade)) {
+    if (isNaN(usuario.idade) || usuario.idade < 1 || usuario.idade > 120) {
       return false;
     }
 
