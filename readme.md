@@ -56,4 +56,51 @@ Dessa forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 
 - **Cuidadores  e Médicos:** Usuários finais que utilizarão o sistema para monitorar e cuidar dos idosos. 
 
-- **Idosos:** Usuários finais que se beneficiarão diretamente do sistema. 
+- **Idosos:** Usuários finais que se beneficiarão diretamente do sistema.
+
+
+# Como executar o projeto  
+
+## 1. Clonar o repositório  
+
+```sh
+git clone https://github.com/seu-usuario/PDS1.git
+cd PDS1
+```
+
+## 2. Configurar o ambiente
+- Certifique-se de ter o Node.js instalado
+- Instale as dependências do backend
+
+```sh
+cd backend
+npm install
+``` 
+
+## 3. Configurar o banco de dados
+- Certifique-se de ter o MySQL ou PostgreSQL instalado e configurado
+- Crie o banco de dados e execute o script usuarios.sql para criar as tabelas:
+
+```sh
+mysql -u seu_usuario -p < backend/database/usuarios.sql
+```
+
+## 4. Configurar as variáveis de ambiente
+- No diretório backend, crie um arquivo .env e adicione suas configurações (siga o exemplo.env na raiz do projeto):
+
+```sh
+DB_HOST=localhost
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+DB_NAME=PDS1
+PORT=3000
+```
+
+## 5. Executar o servidor
+```sh
+cd backend
+npm start
+```
+
+## 6. Abrir o projeto no navegador
+- Acesse http://localhost:3000 para visualizar a aplicação
