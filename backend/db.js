@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 require("dotenv").config();
+// npm install mysql2 dotenv bcrypt
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,

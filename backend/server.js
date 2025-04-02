@@ -1,11 +1,9 @@
 require("dotenv").config();
 const express = require("express");
-const mysql = require("mysql2");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
 
-// npm install express mysql2 dotenv cors body-parser bcrypt
+// npm install express dotenv cors body-parser
 
 const app = express();
 const port = 3000;
