@@ -6,41 +6,43 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Habilita CORS para permitir requisições de diferentes origens
+// Habilita CORS e JSON
 app.use(cors());
 app.use(express.json());
 
-// Define diretórios de arquivos estáticos para servir HTML e outros recursos
-app.use(
-  express.static(path.join(__dirname, "../frontend"), { extensions: ["html", "htm"] })
-);
+// Servindo arquivos estáticos
+app.use(express.static(path.join(__dirname, "../frontend"), { extensions: ["html", "htm"] }));
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
-
-// Importa e define as rotas do módulo de cadastro
-const cadastroRoutes = require("./routes/cadastro");
-app.use("/cadastro", cadastroRoutes);
 app.use("/js", express.static(path.join(__dirname, "../js")));
+app.use("/medico", express.static(path.join(__dirname, "../frontend/medico")));
 
-// Rota raiz para servir o arquivo HTML principal
+// Importação de rotas
+const cadastroRoutes = require("./routes/cadastro");
+const regMedicamentoRoutes = require("./routes/regMedicamento");
+
+app.use("/cadastro", cadastroRoutes);
+app.use("/medicamentos", regMedicamentoRoutes);
+
+// Rota principal
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/comum/index.html"));
 });
 
-// Rota dinâmica para servir páginas HTML da pasta comum, garantindo segurança na entrada do usuário
+// Rota dinâmica para páginas HTML
 app.get("/:page", (req, res) => {
   let page = req.params.page.toLowerCase();
-  if (!page.match(/^[a-z0-9-_]+\.html$/i)) {
+  if (!page.match(/^[a-z0-9-_]+\.html$/i)) {``
     return res.status(400).send("Página inválida");
   }
   res.sendFile(path.join(__dirname, `../frontend/comum/${page}`));
 });
 
-// Middleware para capturar requisições a páginas inexistentes e retornar erro 404
-app.use((req, res, next) => {
+// Middleware para capturar erros 404
+app.use((req, res) => {
   res.status(404).send("Página não encontrada");
 });
 
-// Inicia o servidor na porta especificada e exibe a URL no console
+// Iniciando servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
