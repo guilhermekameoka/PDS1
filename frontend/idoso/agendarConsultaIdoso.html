@@ -31,15 +31,15 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
   <div class="bg-white p-6 rounded-lg shadow-lg w-96">
     <div class="flex justify-center items-center mb-4 relative">
-      <a href="./idoso.html" class="absolute left-0">
-        <img src="../../assets/arrrowBack.png" alt="arrrowBack" class="h-6 w-6"></button>
+      <a href="./agendaMedicaIdoso.html" class="absolute left-0">
+        <img src="../../assets/arrrowBack.png" alt="Voltar" class="h-6 w-6">
       </a>
       <img src="./../../assets/Logo sem fundo.png" alt="Saúde Sênior" class="w-32" />
     </div>
     <h2 class="text-2xl font-bold items-center justify-center flex mb-3">Agendar Consulta</h2>
 
-    <select class="w-full border border-gray-300 p-2 rounded-md mb-3">
-      <option>Especialidade Médica</option>
+    <select class="w-full border border-gray-300 p-2 rounded-md mb-3" aria-label="Especialidade Médica">
+      <option value="" disabled selected>Especialidade Médica</option>
       <option>Cardiologia</option>
       <option>Dermatologia</option>
       <option>Ortopedia</option>
@@ -47,11 +47,21 @@
       <option>Oftalmologia</option>
       <option>Ginecologia</option>
     </select>
-    <select class="w-full border border-gray-300 p-2 rounded-md mb-3">
-      <option>Hospital</option>
+
+    <select class="w-full border border-gray-300 p-2 rounded-md mb-3" aria-label="Hospital">
+      <option value="" disabled selected>Hospital</option>
+      <option>Hospital das Clínicas</option>
+      <option>Hospital São Lucas</option>
+      <option>Hospital Santa Maria</option>
+      <option>Hospital Vida e Saúde</option>
     </select>
-    <select class="w-full border border-gray-300 p-2 rounded-md mb-3">
-      <option>Médico</option>
+
+    <select class="w-full border border-gray-300 p-2 rounded-md mb-3" aria-label="Médico">
+      <option value="" disabled selected>Médico</option>
+      <option>Dr. Caio</option>
+      <option>Dra. Maria Oliveira</option>
+      <option>Dr. Carlos Souza</option>
+      <option>Dra. Ana Costa</option>
     </select>
 
     <div class="relative mb-3">
@@ -69,6 +79,7 @@
     </div>
 
     <input type="text" placeholder="Rua" class="w-full border border-gray-300 p-2 rounded-md mb-3" />
+
     <textarea placeholder="Observações" class="w-full border border-gray-300 p-2 rounded-md mb-3"></textarea>
 
     <button type="submit" class="w-full bg-blue-800 text-white p-3 rounded-lg hover:bg-blue-900">

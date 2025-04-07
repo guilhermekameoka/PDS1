@@ -8,8 +8,12 @@
   <title>Painel Médico</title>
 </head>
 
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
-  <div class="w-96 sm:w-full bg-white p-6 rounded-lg shadow-md">
+<body class="bg-gray-100 flex justify-center items-center min-h-screen height-full">
+  <a href="../comum/login.html">
+    <img src="../../assets/logout.png" alt="Logout" class="absolute top-4 right-4 w-6 cursor-pointer"/>
+  </a>
+
+  <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
     <div class="flex items-center space-x-3">
       <span class="text-2xl">👋</span>
       <h1 class="text-xl font-bold">Olá, Dr. Caio!</h1>
@@ -20,29 +24,20 @@
     </div>
 
     <section class="mt-4 space-y-4">
-      <div class="flex items-center bg-blue-100 p-4 rounded-lg hover:bg-blue-200 transition duration-300">
-        <img src="../../assets/Lifesavers Electrocardiogram.png" alt="Imagem ilustrativa de monitor" class="w-10 h-10"
-          loading="lazy" />
-        <a href="regMedicamento.html" class="flex items-center bg-blue-100 p-4 rounded-lg" aria-label="Acessar registros médicos">
-          <span class="ml-3 text-lg font-semibold">Registros Médicos</span>
-        </a>
-      </div>
+      <a href="regMedicamento.html" class="flex items-center bg-blue-100 p-4 rounded-lg hover:bg-blue-200 transition duration-300" aria-label="Acessar registros médicos">
+        <img src="../../assets/Lifesavers Electrocardiogram.png" alt="Imagem ilustrativa de monitor" class="w-10 h-10" loading="lazy" />
+        <span class="ml-3 text-lg font-semibold">Registros Médicos</span>
+      </a>
 
-      <div class="flex items-center bg-blue-100 p-4 rounded-lg hover:bg-blue-200 transition duration-300">
-        <img src="../../assets/Saude Senior Illustration.png" alt="Imagem ilustrativa de medicamento" class="w-10 h-10"
-          loading="lazy" />
-        <a href="regMedicamento.html" class="flex items-center bg-blue-100 p-4 rounded-lg" aria-label="Ver medicamentos">
-          <span class="ml-3 text-lg font-semibold">Medicamentos</span>
-        </a>
-      </div>
+      <a href="regMedicamento.html" class="flex items-center bg-blue-100 p-4 rounded-lg hover:bg-blue-200 transition duration-300" aria-label="Ver medicamentos">
+        <img src="../../assets/Saude Senior Illustration.png" alt="Imagem ilustrativa de medicamento" class="w-10 h-10" loading="lazy" />
+        <span class="ml-3 text-lg font-semibold">Medicamentos</span>
+      </a>
 
-      <div class="flex items-center bg-blue-100 p-4 rounded-lg hover:bg-blue-200 transition duration-300">
-        <img src="../../assets/Lifesavers Stethoscope from Saude Senior.png" alt="Imagem ilustrativa de estetoscópio"
-          class="w-10 h-10" loading="lazy" />
-        <a href="agendarConsulta.html" class="flex items-center bg-blue-100 p-4 rounded-lg" aria-label="Acessar agenda de consultas">
-          <span class="ml-3 text-lg font-semibold">Agenda de Consultas</span>
-        </a>
-      </div>
+      <a href="agendarConsulta.html" class="flex items-center bg-blue-100 p-4 rounded-lg hover:bg-blue-200 transition duration-300" aria-label="Acessar agenda de consultas">
+        <img src="../../assets/Lifesavers Stethoscope from Saude Senior.png" alt="Imagem ilustrativa de estetoscópio" class="w-10 h-10" loading="lazy" />
+        <span class="ml-3 text-lg font-semibold">Agenda de Consultas</span>
+      </a>
     </section>
   </div>
 </body>
