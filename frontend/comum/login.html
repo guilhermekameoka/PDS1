@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Saúde Sênior</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../../js/validacaoLogin2.js"></script>
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center h-screen overflow-hidden">
@@ -36,26 +35,25 @@
         </div>
 
         <!-- Formulário de Login -->
-        <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-xs space-y-4 p-6">
+        <form id="loginForm" class="mt-6 sm:mx-auto sm:w-full sm:max-w-xs space-y-4 p-6">
             <input type="email" name="email" id="email" autocomplete="email" required placeholder="Email"
                 class="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004251] focus:border-[#004251]">
             
             <div class="mt-2 relative">
-                <input for="senha" type="password" id="senha" autocomplete="current-password" required placeholder="Senha"
+                <input type="password" name="senha" id="senha" autocomplete="current-password" required placeholder="Senha"
                     class="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004251] focus:border-[#004251]">
-                <span class="absolute inset-y-0 right-4 flex items-center text-gray-500 cursor-pointer">👁</span>
             </div>
 
-            <a href="#" class="text-sm text-[#004251] hover:underline">Esqueceu a senha?</a>
-
-            <button class="flex w-full justify-center rounded-md bg-[#004251] px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-[#003040] focus:outline-none focus:ring-2 focus:ring-[#004251]">
-                Sign In
+            <button id="loginButton" type="submit" class="flex w-full justify-center rounded-md bg-[#004251] px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-[#003040] focus:outline-none focus:ring-2 focus:ring-[#004251]">
+                Entrar
             </button>
-        </div>
+        </form>
 
         <!-- Cadastro -->
         <p class="mt-4 text-sm text-gray-600 text-center">Não possui uma conta? <a href="./cadastrar.html" class="text-[#004251] hover:underline">Se registrar</a></p>
     </div>
+
+    <script src="../../js/validacaoLogin.js"></script>
 </body>
 
 </html>

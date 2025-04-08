@@ -123,4 +123,40 @@ document.addEventListener("DOMContentLoaded", function () {
             togglePassword.textContent = "👁"; // Ícone de olho fechado
         }
     });
+
+    // Evento de submissão do formulário de login
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("senha").value;
+
+        try {
+            const response = await fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, senha }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log("Login bem-sucedido!", data); // Log de sucesso
+
+                // Armazena o nome do usuário no localStorage
+                localStorage.setItem("usuarioNome", data.usuario.nome);
+
+                // Redireciona para a página de idoso
+                window.location.href = "../idoso/idoso.html";
+            } else {
+                console.log("Erro no login:", data.error); // Log de erro
+                alert(data.error);
+            }
+        } catch (err) {
+            console.error("Erro ao realizar login:", err); // Log de erro no bloco catch
+            alert("Erro ao realizar login. Tente novamente mais tarde.");
+        }
+    });
 });
