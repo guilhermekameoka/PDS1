@@ -16,6 +16,9 @@ require("dotenv").config();
  app.use("/cadastro", cadastroRoutes);
  app.use("/js", express.static(path.join(__dirname, "../js")));
  
+ const loginRoutes = require("./routes/login");
+ app.use("/login", loginRoutes);
+ 
  app.get("/", (req, res) => {
    res.sendFile(path.join(__dirname, "../frontend/comum/home.html"));
  });
