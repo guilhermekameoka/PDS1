@@ -1,5 +1,6 @@
 const express = require("express");
 const db = require("../database/db");
+const { medicamentoSchema } = require("../utils/validation");
 
 const router = express.Router();
 router.use(express.json());
@@ -7,12 +8,12 @@ router.use(express.json());
 // Rota para cadastrar medicamento
 router.post("/", async (req, res) => {
   try {
-    const { nome, data_inicial, data_final, frequencia, hora, dose } = req.body;
-
-    // Validação de dados
-    if (!nome || !data_inicial || !data_final || !frequencia || !hora || !dose) {
-      return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+    const { error } = medicamentoSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
     }
+
+    const { nome, data_inicial, data_final, frequencia, hora, dose } = req.body;
 
     // Query de inserção
     const sql = `
