@@ -17,7 +17,7 @@ require("dotenv").config();
  app.use("/js", express.static(path.join(__dirname, "../js")));
  
  app.get("/", (req, res) => {
-   res.sendFile(path.join(__dirname, "../frontend/comum/index.html"));
+   res.sendFile(path.join(__dirname, "../frontend/comum/home.html"));
  });
  
  app.get("/:page", (req, res) => {
