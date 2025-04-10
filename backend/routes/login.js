@@ -16,13 +16,13 @@ router.post("/", async (req, res) => {
     }
 
     const emailNormalizado = email.trim().toLowerCase();
-    const [user] = await executeQuery("SELECT * FROM usuarios WHERE email = ?", [emailNormalizado]);
+    const users = await executeQuery("SELECT * FROM usuarios WHERE email = ?", [emailNormalizado]);
 
-    if (user.length === 0) {
+    if (!users || users.length === 0) {
       return res.status(404).json({ error: MESSAGES.LOGIN.USER_NOT_FOUND });
     }
 
-    const usuario = user[0];
+    const usuario = users[0];
     const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
     if (!senhaCorreta) {
