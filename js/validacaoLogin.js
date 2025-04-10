@@ -65,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
     loginButton.addEventListener("click", function (event) {
         event.preventDefault(); // Evita o envio do formulário
 
+        console.log("Botão de login clicado"); // depuração
+
         let emailValido = validarEmail(emailInput.value);
         let senhaValida = passwordInput.value.trim() !== "";
 
@@ -80,8 +82,9 @@ document.addEventListener("DOMContentLoaded", function () {
             removerErro(passwordInput);
         }
 
-        // Se tudo estiver válido, pode enviar os dados (simulação)
         if (emailValido && senhaValida) {
+            console.log("Dados válidos. Enviando requisição..."); // depuração
+            // Simulação de login bem-sucedido
             const alertBox = document.createElement("div");
             alertBox.textContent = "Login realizado com sucesso!";
             alertBox.classList.add("fixed", "top-0", "left-1/2", "transform", "-translate-x-1/2", "bg-green-500", "text-white", "p-2", "rounded");
@@ -89,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             setTimeout(() => {
                 alertBox.remove();
-                window.location.href = "./login.html"; // Redireciona para a página login.html
+                window.location.href = "../idoso/idoso.html"; // Redireciona para a página login.html
             }, 3000); // Remove o alerta após 3 segundos
         }
     });

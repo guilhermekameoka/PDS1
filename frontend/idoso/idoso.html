@@ -9,16 +9,16 @@
 </head>
 
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
-  <a href="../comum/login.html">
+  <a href="../comum/login.html" onclick="localStorage.removeItem('usuarioNome')">
     <img src="../../assets/logout.png" alt="Logout" class="absolute top-4 right-4 w-6 cursor-pointer" />
   </a>
 
   <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
     <div class="flex items-center space-x-3">
       <span class="text-2xl">👋</span>
-      <h1 class="text-xl font-bold">Olá, Neide!</h1>
+      <h1 id="usuarioNome" class="text-xl font-bold">Olá, Usuário!</h1>
       <div class="ml-auto w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-        <img src="../../assets/Lifesavers Avatar from Saude Senior.png" alt="Avatar do usuário Neide" class="rounded-full"
+        <img src="../../assets/Lifesavers Avatar from Saude Senior.png" alt="Avatar do usuário" class="rounded-full"
           loading="lazy" />
       </div>
     </div>
@@ -45,6 +45,14 @@
       </a>
     </section>
   </div>
+
+  <script>
+    // Busca o nome do usuário do localStorage e exibe na página
+    const usuarioNome = localStorage.getItem("usuarioNome");
+    if (usuarioNome) {
+      document.getElementById("usuarioNome").textContent = `Olá, ${usuarioNome}!`;
+    }
+  </script>
 </body>
 
 </html>
