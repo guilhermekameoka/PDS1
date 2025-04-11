@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (response.ok) {
           alert("Cadastro realizado com sucesso!");
-          window.location.href = "../home.html";
+          window.location.href = "./login.html";
         } else {
           alert("Erro: " + (data.error || "Ocorreu um erro inesperado"));
         }
@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
       numero: document.querySelector("[name=numero]").value.trim(),
       cidade: document.querySelector("[name=cidade]").value.trim(),
       senha: document.querySelector("[name=senha]").value.trim(),
+      tipo_usuario: document.querySelector("[name=tipo_usuario]").value.trim(),
     };
   }
 
@@ -62,6 +63,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (usuario.senha.length < 6) {
+      return false;
+    }
+
+    // Validar o tipo de usuário
+    if (!['medico', 'idoso', 'cuidador'].includes(usuario.tipo_usuario)) {
+      alert("Por favor, selecione um perfil válido.");
       return false;
     }
 
