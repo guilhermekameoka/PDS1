@@ -1,55 +1,127 @@
-# PDS1 - Grupo 9
+# Saúde Sênior - Sistema de Monitoramento para Idosos
 
 <div align="center">
-  <img src="./assets/Logo sem fundo.png" alt="Logo do Projeto">
+  <img src="./assets/Logo sem fundo.png" alt="Logo do Projeto" width="300px">
+  
+  ![Status do Projeto](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
+  ![Versão](https://img.shields.io/badge/versão-1.0.0-blue)
+  ![Licença](https://img.shields.io/badge/licença-MIT-green)
 </div>
 
-## Integrantes
-- Guilherme R. Kameoka  
-- Carlos Livius  
-- Esdras  
-- Pedro Alexandre  
-- Guilherme Rafael  
+## 📋 Índice
 
-[Protótipo de Telas no Figma](https://www.figma.com/design/xOfVNmNg7hMd7MRAj29pjU/IHC?node-id=6-0&m=dev&t=f4OE9q94xtLv6NHp-1)  
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Demonstração](#demonstração)
+- [Integrantes](#integrantes)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Requisitos](#requisitos)
+- [Instalação](#instalação)
+- [Configuração](#configuração-das-variáveis-de-ambiente)
+- [Executando o Projeto](#executando-o-projeto)
+- [API Backend](#funcionalidades-do-backend)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
+
+---
+
+## 📖 Sobre o Projeto
+
+O sistema **Saúde Sênior** foi desenvolvido para resolver o problema da organização e monitoramento das necessidades dos idosos por meio de uma plataforma web e mobile intuitiva, conectando cuidadores, médicos e os próprios idosos.
+
+A solução envolve uma aplicação que permite:
+- 💊 Registro e acompanhamento de medicamentos
+- 📅 Agendamento de consultas médicas
+- 🚑 Sistema de chamada de emergência
+- 📊 Compartilhamento de informações de saúde
+- 📱 Integração com dispositivos wearables para monitoramento biométrico em tempo real
+
+Desta forma, o aplicativo facilita a comunicação entre todos os envolvidos e melhora o acompanhamento da saúde dos idosos, promovendo um suporte mais eficiente e personalizado.
+
+---
+
+## 📱 Demonstração
+
+[Protótipo de Telas no Figma](https://www.figma.com/design/xOfVNmNg7hMd7MRAj29pjU/IHC?node-id=6-0&m=dev&t=f4OE9q94xtLv6NHp-1)
+
+
+
+## 👥 Integrantes
+
+| Nome | Função | GitHub |
+|------|--------|--------|
+| Guilherme R. Kameoka | Backend developer | [@guilhermekameoka](https://github.com/guilhermekameoka) |
+| Carlos Livius | Front-end Developer | [@githubuser](https://github.com) |
+| Esdras | Back-end Developer | [@githubuser](https://github.com) |
+| Pedro Alexandre | UI/UX Designer | [@githubuser](https://github.com) |
+| Guilherme Rafael | Database Engineer | [@githubuser](https://github.com) |
+
 [Documentos do Projeto](https://ufubr-my.sharepoint.com/:w:/g/personal/guilherme_cerqueira_ufu_br/ET1Nuk7voaZEl4WjN0I6fIgBzidfA1-Ss762blLxvqqlHg?e=0UtQPx)
 
 ---
 
-## Sobre o Projeto
-O sistema proposto busca resolver o problema da organização e monitoramento das necessidades dos idosos por meio de uma plataforma mobile intuitiva, conectando cuidadores, médicos e os próprios idosos.  
-
-A solução computacional envolve um aplicativo que permite o registro e acompanhamento de atividades diárias, compartilhamento de informações de saúde e integração com dispositivos wearables, como relógios inteligentes, para captar dados biométricos em tempo real.  
-
-Dessa forma, o aplicativo facilita a comunicação entre todos os envolvidos e melhora o acompanhamento da saúde dos idosos, promovendo um suporte mais eficiente e personalizado.  
-
----
-
-## Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-- **Front-end:** HTML5, TailwindCSS
-- **Back-end:** Node.js para gerenciar a lógica do sistema e as APIs de integração. 
-- **Banco de Dados:** PostgreSQL para armazenar dados estruturados. 
-- **Armazenamento na Nuvem:** AWS para guardar arquivos como relatórios médicos e imagens. 
-- **Integração com Wearables:** APIs como Google Fit, Apple HealthKit para comunicação com relógios inteligentes. 
-- **Segurança e Conformidade:** Autenticação via Firebase Auth, criptografia de dados sensíveis e conformidade com a LGPD e GDPR. 
+### Stack Técnico
+- **Front-end:** 
+  - HTML5 para estruturação de páginas
+  - TailwindCSS para estilização responsiva
+  - JavaScript para interatividade e validações
+  
+- **Back-end:** 
+  - Node.js e Express.js para API RESTful
+  - Middlewares para validação e autenticação
+  
+- **Banco de Dados:** 
+  - MySQL para armazenamento de dados estruturados
+  
+- **Segurança:** 
+  - Criptografia de senhas com bcrypt
+  - Validação de dados com Joi
+  - Conformidade com LGPD e GDPR
 
 ---
 
-## Requisitos
+## 📁 Estrutura do Projeto
+
+```
+📦 PDS1
+ ┣ 📂 frontend               # Interface do usuário
+ ┃ ┣ 📂 comum                # Páginas acessíveis a todos os usuários
+ ┃ ┣ 📂 css                  # Estilos CSS
+ ┃ ┣ 📂 cuidador             # Páginas específicas para cuidadores
+ ┃ ┣ 📂 idoso                # Páginas específicas para idosos
+ ┃ ┗ 📂 medico               # Páginas específicas para médicos
+ ┣ 📂 backend                # API e lógica de negócios
+ ┃ ┣ 📂 database             # Configuração e esquema do banco de dados
+ ┃ ┣ 📂 middlewares          # Middlewares para validação
+ ┃ ┣ 📂 routes               # Rotas da API
+ ┃ ┗ 📂 utils                # Utilitários e helpers
+ ┣ 📂 js                     # Arquivos JavaScript do cliente
+ ┣ 📂 assets                 # Imagens e recursos estáticos
+ ┣ 📜 docs.md                # Documentação detalhada da API
+ ┗ 📜 readme.md              # Este arquivo
+```
+
+---
+
+## ⚙️ Requisitos
 
 - Node.js (versão 12 ou superior)
 - NPM (Node Package Manager)
+- MySQL ou PostgreSQL
 
 ---
 
-## Instalação
+## 🚀 Instalação
 
 ### 1. Faça um clone deste repositório:
 ```sh
@@ -96,10 +168,10 @@ SHOW TABLES;
 
 ---
 
-## Configuração das Variáveis de Ambiente
+## ⚙️ Configuração das Variáveis de Ambiente
 
 Antes de iniciar o projeto, configure as variáveis de ambiente.  
-Crie um arquivo `.env` no diretório `backend` e edite os seguintes valores:
+Crie um arquivo `.env` no diretório `backend` baseado no arquivo `exemplo.env`:
 
 ```env
 DB_HOST=localhost
@@ -113,7 +185,7 @@ Substitua os valores de acordo com a sua configuração local.
 
 ---
 
-## Executando o Projeto
+## 🏃‍♂️ Executando o Projeto
 
 Para iniciar o projeto em modo de desenvolvimento, utilize o seguinte comando:
 ```sh
@@ -126,7 +198,7 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
 
 ---
 
-## Funcionalidades do Backend
+## 🔌 Funcionalidades do Backend
 
 ### 1. **Cadastro de Usuários**
 **Rota:** `POST /cadastro`
@@ -172,8 +244,6 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
     "error": "Erro ao cadastrar usuário. Tente novamente mais tarde."
   }
   ```
-
----
 
 ### 2. **Login de Usuários**
 **Rota:** `POST /login`
@@ -228,8 +298,6 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
   }
   ```
 
----
-
 ### 3. **Cadastro de Medicamentos**
 **Rota:** `POST /medicamento`
 
@@ -272,8 +340,6 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
   }
   ```
 
----
-
 ### 4. **Listagem de Medicamentos de um Usuário**
 **Rota:** `GET /medicamento/usuario/:id`
 
@@ -313,8 +379,6 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
   }
   ```
 
----
-
 ### 5. **Listagem de Usuários Idosos**
 **Rota:** `GET /usuarios/idosos`
 
@@ -339,9 +403,24 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
   }
   ```
 
+Para documentação mais detalhada da API, consulte o arquivo [docs.md](./docs.md).
+
 ---
 
-## Considerações Finais
-- Todas as requisições devem ser feitas no formato JSON.
-- Certifique-se de configurar corretamente as variáveis de ambiente no arquivo `.env` para que o backend funcione corretamente.
-- Em caso de dúvidas ou problemas, consulte os logs do servidor para mais detalhes.
+## 👨‍💻 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
+3. Faça commit das suas mudanças (`git commit -m 'Adicionando nova funcionalidade'`)
+4. Faça push para a branch (`git push origin feature/nova-funcionalidade`)
+5. Abra um Pull Request
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para mais detalhes.
+
+---
+
+Desenvolvido como parte do projeto de Programação e Desenvolvimento de Software I, Universidade Federal de Uberlândia - 2025.
