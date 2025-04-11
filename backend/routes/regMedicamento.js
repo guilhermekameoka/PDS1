@@ -37,7 +37,7 @@ router.post("/", validate(medicamentoSchema), async (req, res) => {
       }
     } catch (error) {
       console.error("Erro ao verificar ou adicionar coluna id_medico:", error);
-      // Continuamos mesmo se houver erro, para que o resto do código execute
+
     }
 
     const sql = `
@@ -55,7 +55,7 @@ router.post("/", validate(medicamentoSchema), async (req, res) => {
   }
 });
 
-// Nova rota para listar medicamentos de um usuário
+// Rota para listar medicamentos de um usuário
 router.get("/usuario/:id", async (req, res) => {
   try {
     const userId = req.params.id;
