@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../../js/listarMedicamentos.js"></script>
   <title>Lista de Medicamentos</title>
 </head>
 
@@ -21,22 +22,12 @@
 
     <!-- Campo de pesquisa -->
     <div class="mt-4">
-      <input type="text" placeholder="Pesquisar" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none" />
+      <input type="text" id="search-medicamento" placeholder="Pesquisar por nome" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none" />
     </div>
 
-    <!-- Lista de medicamentos -->
-    <div class="mt-6 space-y-4">
-      <div class="p-4 bg-gray-100 rounded-lg shadow-md">
-        <h2 class="text-lg font-semibold text-gray-800">Insulina</h2>
-        <p class="text-sm text-gray-600">Dosagem: 10UI por dose, ate 3x por dia, após as refeições </p>
-      </div>
-
-      <div class="p-4 bg-gray-100 rounded-lg shadow-md">
-        <h2 class="text-lg font-semibold text-gray-800">Rivotril</h2>
-        <p class="text-sm text-gray-600">Dosagem: 2 comprimidos por dose, de 8 em 8 horas</p>
-      </div>
-
-      <!-- Outros medicamentos podem ser adicionados aqui -->
+    <!-- Container onde os medicamentos serão carregados dinamicamente -->
+    <div id="medicamentos-container" class="mt-6 space-y-4">
+      <!-- Os medicamentos serão adicionados aqui pelo JavaScript -->
     </div>
 
     <div class="fixed bottom-6 right-6 flex items-center justify-center">
