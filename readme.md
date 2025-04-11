@@ -29,7 +29,6 @@ Dessa forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-<!-- <img src="./assets/visao geral.png">   -->
 
 - **Front-end:** HTML5, TailwindCSS
 
@@ -42,21 +41,6 @@ Dessa forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 - **Integração com Wearables:** APIs como Google Fit, Apple HealthKit para comunicação com relógios inteligentes. 
 
 - **Segurança e Conformidade:** Autenticação via Firebase Auth, criptografia de dados sensíveis e conformidade com a LGPD e GDPR. 
-
-
-# Envolvidos 
-
-<img src="./assets/envolvidos.png">  
-
-- **Desenvolvedores:** Responsáveis pela implementação do sistema. 
-
-- **Designers de UX/UI:** Focam em tornar a interface mais intuitiva e acessível. 
-
-- **Equipe de Segurança e Conformidade:** Garantem que o sistema atenda às regulamentações de proteção de dados. 
-
-- **Cuidadores  e Médicos:** Usuários finais que utilizarão o sistema para monitorar e cuidar dos idosos. 
-
-- **Idosos:** Usuários finais que se beneficiarão diretamente do sistema.
 
 
 # Requisitos
@@ -140,3 +124,5 @@ npm run start
 ```
 
 Este comando iniciará o servidor em modo de desenvolvimento. Você poderá acessar a aplicação em `http://localhost:3000`.
+
+![Tutorial](./assets/CleanShot%202025-04-11%20at%2000.01.03@2x.png)
