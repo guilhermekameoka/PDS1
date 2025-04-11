@@ -31,7 +31,12 @@ router.post("/", async (req, res) => {
 
     res.status(200).json({
       message: MESSAGES.LOGIN.SUCCESS,
-      usuario: { id: usuario.id, nome: usuario.nome, email: usuario.email },
+      usuario: { 
+        id: usuario.id, 
+        nome: usuario.nome, 
+        email: usuario.email,
+        tipo: usuario.tipo_usuario || 'idoso' // Incluindo o tipo de usuário na resposta
+      },
     });
   } catch (err) {
     console.error("Erro no login de usuário:", err);
