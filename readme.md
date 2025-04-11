@@ -66,39 +66,70 @@ Dessa forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 
 # Instalação
 
-1. Faça um clone deste repositório.
+### 1. Faça um clone deste repositório:
 
 ```sh
 git clone https://github.com/seu-usuario/PDS1.git
 ```
 
-2. Navegue até o diretório do projeto:
+### 2. Navegue até o diretório do projeto:
 
 ```sh
 cd PDS1
 ```
 
-3. Instale as dependências do backend executando o seguinte comando:
+### 3. Instale as dependências do backend:
 
 ```sh
 cd backend
 npm install
 ```
 
+### 4. Configure o banco de dados
+
+Crie um banco de dados MySQL ou PostgreSQL com o nome especificado na variável `DB_NAME` no arquivo `.env`.
+
+### 5. Execute o script de acordo com o banco de dados escolhido
+
+<details>
+<summary>MySQL</summary>
+
+```sh
+mysql -u seu_usuario -p seu_banco < backend/database/schema.sql
+```
+
+</details>
+
+<details>
+<summary>PostgreSQL</summary>
+
+```sh
+psql -U seu_usuario -d seu_banco -f backend/database/schema.sql
+```
+
+</details>
+
+### 6. Verifique se as tabelas foram criadas corretamente, execute:
+
+```sql
+SHOW TABLES;
+```
+
+
 # Configuração das Variáveis de Ambiente
 
-Antes de iniciar o projeto, você precisa configurar as variáveis de ambiente necessárias.  
-Abra o arquivo `.env` no diretório `backend` e edite as seguintes variáveis de acordo com as suas configurações:
+Antes de iniciar o projeto, configure as variáveis de ambiente.  
+Crie um arquivo `.env` no diretório `backend` e edite os seguintes valores:
 
 ```env
 DB_HOST=localhost
-DB_USER=nome_usuario
+DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
-DB_NAME=nome_bd
+DB_NAME=seu_banco
 PORT=3000
 ```
 
-Certifique-se de substituir os valores das variáveis acima pelas suas próprias configurações de banco de dados.
+Substitua os valores de acordo com a sua configuração local.
 
 # Executando o Projeto
 
