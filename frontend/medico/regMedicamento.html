@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/js/medicamento.js"></script>
+  <script src="../../js/medicamento.js"></script>
   <title>Registro de Medicamento</title>
   <style>
     .placeholder-label {
@@ -41,6 +41,12 @@
     <h1 class="text-2xl font-bold text-center mb-4">Registro de Medicamento</h1>
 
     <form id="medicamento-form" class="space-y-4">
+      <!-- Campo de seleção do paciente (idoso) -->
+      <select id="paciente" class="w-full p-3 border rounded-lg text-gray-700" required>
+        <option value="" disabled selected>Selecione o paciente</option>
+        <!-- Os pacientes serão carregados via JavaScript -->
+      </select>
+
       <input type="text" id="nome" placeholder="Nome do Medicamento" class="w-full p-3 border rounded-lg" required>
 
       <input type="date" id="data-inicial" class="w-full p-3 border rounded-lg" required>
@@ -61,6 +67,9 @@
       </button>
     </form>
   </div>
+  
+  <!-- Script para carregar a lista de pacientes -->
+  <script src="../../js/carregarPacientes.js"></script>
 </body>
 
 </html>

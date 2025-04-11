@@ -9,7 +9,7 @@
 </head>
 
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
-  <a href="../comum/login.html" onclick="localStorage.removeItem('usuarioNome')">
+  <a href="../comum/login.html" onclick="localStorage.removeItem('usuarioNome'); localStorage.removeItem('usuarioId');">
     <img src="../../assets/logout.png" alt="Logout" class="absolute top-4 right-4 w-6 cursor-pointer" />
   </a>
 
@@ -48,10 +48,14 @@
 
   <script>
     // Busca o nome do usuário do localStorage e exibe na página
-    const usuarioNome = localStorage.getItem("usuarioNome");
-    if (usuarioNome) {
-      document.getElementById("usuarioNome").textContent = `Olá, ${usuarioNome}!`;
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      const usuarioNome = localStorage.getItem("usuarioNome");
+      if (usuarioNome) {
+        document.getElementById("usuarioNome").textContent = `Olá, ${usuarioNome}!`;
+      } else {
+        console.log("Nome do usuário não encontrado no localStorage");
+      }
+    });
   </script>
 </body>
 

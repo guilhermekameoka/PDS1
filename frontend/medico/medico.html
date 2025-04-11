@@ -5,20 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../../js/medicoInterface.js"></script>
   <title>Painel Médico</title>
 </head>
 
 <body class="bg-gray-100 flex justify-center items-center min-h-screen height-full">
-  <a href="../comum/login.html">
+  <a href="#" id="logout-button">
     <img src="../../assets/logout.png" alt="Logout" class="absolute top-4 right-4 w-6 cursor-pointer"/>
   </a>
 
   <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
     <div class="flex items-center space-x-3">
       <span class="text-2xl">👋</span>
-      <h1 class="text-xl font-bold">Olá, Dr. Caio!</h1>
+      <h1 class="text-xl font-bold" id="saudacao-medico">Olá, Doutor(a)!</h1>
       <div class="ml-auto w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-        <img src="../../assets/Lifesavers Avatar from Saude Senior.png" alt="Avatar do Dr. Caio" class="rounded-full"
+        <img src="../../assets/Lifesavers Avatar from Saude Senior.png" alt="Avatar do médico" class="rounded-full"
           loading="lazy" />
       </div>
     </div>

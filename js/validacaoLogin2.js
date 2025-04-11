@@ -1,44 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
     const emailInput = document.querySelector("input[type='email']");
     const passwordInput = document.querySelector("input[type='password']");
-    const loginButton = document.querySelector("button"); // Seleciona o botão de login
+    const loginButton = document.querySelector("button");
     const togglePassword = document.querySelector(".relative span"); // Ícone do olho 👁
-    const perfilMedico = document.querySelector("img[alt='Médico']");
-    const perfilIdoso = document.querySelector("img[alt='Idoso']");
-    const perfilCuidador = document.querySelector("img[alt='Cuidador']");
+    const loginStatus = document.getElementById("login-status");
     
-     // Função para remover a borda de todos os perfis
-     function removerBordaPerfis() {
-        perfilMedico.classList.remove("border-4", "border-blue-500");
-        perfilIdoso.classList.remove("border-4", "border-blue-500");
-        perfilCuidador.classList.remove("border-4", "border-blue-500");
-    }
-
-    // Adiciona evento para destacar a seleção do Médico
-    perfilMedico.addEventListener("click", function () {
-        removerBordaPerfis();
-        perfilMedico.classList.add("border-4", "border-blue-500");
-    });
-
-    // Adiciona evento para destacar a seleção do Idoso
-    perfilIdoso.addEventListener("click", function () {
-        removerBordaPerfis();
-        perfilIdoso.classList.add("border-4", "border-blue-500");
-    });
-
-    // Adiciona evento para destacar a seleção do Cuidador
-    perfilCuidador.addEventListener("click", function () {
-        removerBordaPerfis();
-        perfilCuidador.classList.add("border-4", "border-blue-500");
-    });
-
     // Função para validar e-mail
     function validarEmail(email) {
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regexEmail.test(email);
     }
 
-    // Função para exibir mensagens de erro corretamente abaixo do input
+    // Função para exibir mensagens de erro
     function exibirErro(input, mensagem) {
         input.classList.add("border-red-500");
         input.classList.remove("border-gray-300");
@@ -63,6 +36,47 @@ document.addEventListener("DOMContentLoaded", function () {
             errorSpan.remove();
         }
     }
+    
+    // Função para redirecionar com base no tipo de usuário
+    function redirecionarPorTipoUsuario(tipoUsuario) {
+        switch(tipoUsuario) {
+            case 'medico':
+                window.location.href = "../medico/medico.html";
+                break;
+            case 'idoso':
+                window.location.href = "../idoso/idoso.html";
+                break;
+            case 'cuidador':
+                mostrarMensagem("O acesso para cuidadores está temporariamente desativado.", "error");
+                break;
+            default:
+                // Caso o tipo não seja reconhecido, redireciona para idoso por padrão
+                window.location.href = "../idoso/idoso.html";
+        }
+    }
+    
+    // Função para mostrar mensagens de status
+    function mostrarMensagem(mensagem, tipo) {
+        loginStatus.textContent = mensagem;
+        loginStatus.classList.remove("hidden", "text-green-500", "text-red-500");
+        
+        if (tipo === "success") {
+            loginStatus.classList.add("text-green-500");
+        } else if (tipo === "error") {
+            loginStatus.classList.add("text-red-500");
+        }
+    }
+
+    // Alternar visibilidade da senha
+    togglePassword?.addEventListener("click", function () {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            togglePassword.textContent = "👁‍🗨"; // Ícone de olho aberto
+        } else {
+            passwordInput.type = "password";
+            togglePassword.textContent = "👁"; // Ícone de olho fechado
+        }
+    });
 
     // Evento de clique no botão de login
     loginButton.addEventListener("click", function (event) {
@@ -83,44 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
             removerErro(passwordInput);
         }
 
-        // Se tudo estiver válido, redireciona para a página do médico
+        // Se tudo estiver válido, submete o formulário
         if (emailValido && senhaValida) {
-            const alertBox = document.createElement("div");
-            alertBox.classList.add("fixed", "top-0", "left-1/2", "transform", "-translate-x-1/2", "p-2", "rounded");
-
-            if (perfilCuidador.classList.contains("border-blue-500")) {
-            alertBox.textContent = "Este Login está Temporariamente desativado!";
-            alertBox.classList.add("bg-red-500", "text-white");
-            document.body.appendChild(alertBox);
-
-            setTimeout(() => {
-                alertBox.remove();
-            }, 3000);
-            } else {
-            alertBox.textContent = "Login realizado com sucesso! ✓";
-            alertBox.classList.add("bg-green-500", "text-white");
-            document.body.appendChild(alertBox);
-
-            setTimeout(() => {
-                alertBox.remove();
-                if (perfilMedico.classList.contains("border-blue-500")) {
-                window.location.href = "../medico/medico.html";
-                } else if (perfilIdoso.classList.contains("border-blue-500")) {
-                window.location.href = "../idoso/idoso.html";
-                }
-            }, 3000);
-            }
-        }
-    });
-
-    // Alternar visibilidade da senha
-    togglePassword.addEventListener("click", function () {
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            togglePassword.textContent = "👁‍🗨"; // Ícone de olho aberto
-        } else {
-            passwordInput.type = "password";
-            togglePassword.textContent = "👁"; // Ícone de olho fechado
+            document.getElementById("loginForm").dispatchEvent(new Event('submit'));
         }
     });
 
@@ -132,6 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const senha = document.getElementById("senha").value;
 
         try {
+            mostrarMensagem("Verificando credenciais...", "info");
+            
             const response = await fetch("http://localhost:3000/login", {
                 method: "POST",
                 headers: {
@@ -145,18 +126,25 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 console.log("Login bem-sucedido!", data); // Log de sucesso
 
-                // Armazena o nome do usuário no localStorage
+                // Armazena os dados do usuário no localStorage
+                localStorage.setItem("usuarioId", data.usuario.id);
                 localStorage.setItem("usuarioNome", data.usuario.nome);
+                localStorage.setItem("usuarioTipo", data.usuario.tipo || 'idoso');
 
-                // Redireciona para a página de idoso
-                window.location.href = "../idoso/idoso.html";
+                // Mostra mensagem de sucesso
+                mostrarMensagem("Login realizado com sucesso! Redirecionando...", "success");
+
+                setTimeout(() => {
+                    // Redireciona conforme o tipo do usuário retornado pelo backend
+                    redirecionarPorTipoUsuario(data.usuario.tipo || 'idoso');
+                }, 1500);
             } else {
                 console.log("Erro no login:", data.error); // Log de erro
-                alert(data.error);
+                mostrarMensagem(data.error || "Erro no login. Verifique suas credenciais.", "error");
             }
         } catch (err) {
             console.error("Erro ao realizar login:", err); // Log de erro no bloco catch
-            alert("Erro ao realizar login. Tente novamente mais tarde.");
+            mostrarMensagem("Erro ao comunicar com o servidor. Tente novamente mais tarde.", "error");
         }
     });
 });
