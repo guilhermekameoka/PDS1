@@ -446,4 +446,4 @@ Para documentação mais detalhada da API, consulte o arquivo [docs.md](./docs.m
 ---
 
 
-Desenvolvido como parte do projeto de Programação e Desenvolvimento de Software I, Universidade Federal de Uberlândia - 2025.
+Desenvolvido como parte da disciplina Projeto e Desenvolvimento de Software I, Universidade Federal de Uberlândia - 2025.
