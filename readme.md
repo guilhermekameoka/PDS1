@@ -212,6 +212,10 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
 
 ![Paciente](/assets/tela_idoso.png)
 
+### Agenda médica (Visão do paciente)
+
+![Agenda](/assets/agenda_idoso.png)
+
 ### Medicamentos (Visão do paciente)
 
 ![Medicamentos](/assets/medicamentos.png)
@@ -220,9 +224,17 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
 
 ![Medico](/assets/tela_medico.png)
 
-### Registro de medicamentos
+### Registro de medicamentos (Visão do médico)
 
 ![Medicamento](/assets/registroMedicamento.png)
+
+### Agendar Consula (Visão do médico)
+
+![Agendamento](/assets/agendamento.png)
+
+### Agenda médica (Visão do médico)
+
+![Agenda](/assets/agenda.png)
 
 ---
 
