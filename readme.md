@@ -125,7 +125,7 @@ Desta forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 
 ### 1. Faça um clone deste repositório:
 ```sh
-git clone https://github.com/seu-usuario/PDS1.git
+git clone https://github.com/guilhermekameoka/PDS1.git
 ```
 
 ### 2. Navegue até o diretório do projeto:
