@@ -208,14 +208,21 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
 
 ![Login](/assets/login.png)
 
-### 4. Escolha dentre as opções disponíveis (Home Idoso)
+### 4. Escolha dentre as opções disponíveis (Visão do paciente)
 
-![Idoso](/assets/tela_idoso.png)
+![Paciente](/assets/tela_idoso.png)
 
+### Medicamentos (Visão do paciente)
 
-### 5. Escolha dentre as opções disponíveis (Home Médico)
+![Medicamentos](/assets/medicamentos.png)
+
+### 5. Escolha dentre as opções disponíveis (Visão do médico)
 
 ![Medico](/assets/tela_medico.png)
+
+### Registro de medicamentos
+
+![Medicamento](/assets/registroMedicamento.png)
 
 ---
 
