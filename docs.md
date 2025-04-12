@@ -11,10 +11,10 @@
 8. [Considerações Finais](#considerações-finais)
 
 ## Introdução
-O backend do sistema Saúde Sênior foi desenvolvido utilizando Node.js e Express.js, com um banco de dados MySQL para armazenamento de dados. Ele fornece uma API RESTful para gerenciar usuários (médicos, idosos e cuidadores), medicamentos e autenticação.
+O backend do sistema Saúde Sênior foi desenvolvido utilizando Node.js e Express.js, com um banco de dados MySQL para armazenamento de dados. Ele fornece uma API RESTful para gerenciar usuários (médicos, idosos e cuidadores), medicamentos, consultas e autenticação.
 
 ### Objetivo do Sistema
-O sistema permite o gerenciamento eficiente de prescrições médicas, acompanhamento de medicamentos e integração entre médicos, idosos e cuidadores, proporcionando uma plataforma centralizada para o cuidado da saúde do idoso.
+O sistema permite o gerenciamento eficiente de prescrições médicas, acompanhamento de medicamentos, agendamento de consultas e integração entre médicos, idosos e cuidadores, proporcionando uma plataforma centralizada para o cuidado da saúde do idoso.
 
 ### Tecnologias Utilizadas
 - **Node.js**: Ambiente de execução JavaScript
@@ -40,6 +40,7 @@ backend/
 │   └── validate.js           # Middleware de validação de dados
 ├── routes/
 │   ├── cadastro.js           # Rota para cadastro de usuários
+│   ├── consultas.js          # Rotas para gerenciar consultas
 │   ├── index.js              # Agrupa e exporta todas as rotas
 │   ├── login.js              # Rota para autenticação
 │   ├── regMedicamento.js     # Rotas para gerenciar medicamentos
@@ -414,6 +415,152 @@ curl -X GET http://localhost:3000/usuarios/idosos
 ```
 
 
+### 6. **Agendamento de Consultas**
+**Rota:** `POST /consulta`
+
+**Descrição:** Permite que médicos agendem consultas para pacientes idosos. Apenas usuários com tipo "medico" podem realizar esta operação.
+
+**Corpo da Requisição:**
+```json
+{
+  "data": "2025-04-20",
+  "hora": "14:30",
+  "local": "Hospital Santa Maria - Consultório 302",
+  "observacoes": "Trazer exames anteriores",
+  "id_medico": 15,
+  "id_paciente": 42
+}
+```
+
+**Resposta de Sucesso:**
+- **Status:** `201 Created`
+```json
+{
+  "id": 25,
+  "message": "Consulta agendada com sucesso"
+}
+```
+
+**Possíveis Erros:**
+- **400 Bad Request:**
+  ```json
+  {
+    "error": "Todos os campos obrigatórios devem ser preenchidos"
+  }
+  ```
+- **403 Forbidden:**
+  ```json
+  {
+    "error": "Apenas médicos podem agendar consultas"
+  }
+  ```
+- **404 Not Found:**
+  ```json
+  {
+    "error": "Paciente não encontrado ou não é um idoso"
+  }
+  ```
+- **500 Internal Server Error:**
+  ```json
+  {
+    "error": "Erro ao agendar consulta"
+  }
+  ```
+
+**Exemplo de Uso com cURL:**
+```bash
+curl -X POST http://localhost:3000/consulta \
+  -H "Content-Type: application/json" \
+  -d '{
+    "data": "2025-04-20",
+    "hora": "14:30",
+    "local": "Hospital Santa Maria - Consultório 302",
+    "observacoes": "Trazer exames anteriores",
+    "id_medico": 15,
+    "id_paciente": 42
+  }'
+```
+
+### 7. **Visualização de Consultas do Médico**
+**Rota:** `GET /consulta/medico/:id`
+
+**Descrição:** Retorna todas as consultas agendadas por um médico específico, incluindo informações dos pacientes.
+
+**Parâmetros da URL:**
+- `id`: ID do médico (número inteiro).
+
+**Resposta de Sucesso:**
+- **Status:** `200 OK`
+```json
+[
+  {
+    "id": 25,
+    "data": "2025-04-20",
+    "hora": "14:30",
+    "local": "Hospital Santa Maria - Consultório 302",
+    "observacoes": "Trazer exames anteriores",
+    "id_medico": 15,
+    "id_paciente": 42,
+    "created_at": "2025-04-12T15:30:45.000Z",
+    "nome_paciente": "João Silva",
+    "idade_paciente": 65
+  }
+]
+```
+
+**Possíveis Erros:**
+- **500 Internal Server Error:**
+  ```json
+  {
+    "error": "Erro ao listar consultas"
+  }
+  ```
+
+**Exemplo de Uso com cURL:**
+```bash
+curl -X GET http://localhost:3000/consulta/medico/15
+```
+
+### 8. **Visualização de Consultas do Paciente**
+**Rota:** `GET /consulta/paciente/:id`
+
+**Descrição:** Retorna todas as consultas agendadas para um paciente específico, incluindo informações dos médicos.
+
+**Parâmetros da URL:**
+- `id`: ID do paciente (número inteiro).
+
+**Resposta de Sucesso:**
+- **Status:** `200 OK`
+```json
+[
+  {
+    "id": 25,
+    "data": "2025-04-20",
+    "hora": "14:30",
+    "local": "Hospital Santa Maria - Consultório 302",
+    "observacoes": "Trazer exames anteriores",
+    "id_medico": 15,
+    "id_paciente": 42,
+    "created_at": "2025-04-12T15:30:45.000Z",
+    "nome_medico": "Dra. Ana Souza"
+  }
+]
+```
+
+**Possíveis Erros:**
+- **500 Internal Server Error:**
+  ```json
+  {
+    "error": "Erro ao listar consultas"
+  }
+  ```
+
+**Exemplo de Uso com cURL:**
+```bash
+curl -X GET http://localhost:3000/consulta/paciente/42
+```
+
+
 ## Detalhamento Técnico dos Componentes
 
 ### 1. **server.js**
@@ -564,6 +711,10 @@ Script SQL para criar a estrutura inicial do banco de dados.
   - Colunas: id, nome, data_inicial, data_final, frequencia, hora, dose, id_usuario, id_medico, created_at
   - Relacionamento: chaves estrangeiras para usuarios(id)
 
+- **consultas**: Armazena dados de consultas agendadas
+  - Colunas: id, data, hora, local, observacoes, id_medico, id_paciente, created_at
+  - Relacionamento: chaves estrangeiras para usuarios(id) em id_medico e id_paciente
+
 **Exemplo de Código:**
 ```sql
 CREATE DATABASE IF NOT EXISTS saude_senior;
@@ -597,6 +748,19 @@ CREATE TABLE IF NOT EXISTS medicamentos (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
   FOREIGN KEY (id_medico) REFERENCES usuarios(id)
+);
+
+CREATE TABLE IF NOT EXISTS consultas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  data DATE NOT NULL,
+  hora TIME NOT NULL,
+  local VARCHAR(255),
+  observacoes TEXT,
+  id_medico INT NOT NULL,
+  id_paciente INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_medico) REFERENCES usuarios(id),
+  FOREIGN KEY (id_paciente) REFERENCES usuarios(id)
 );
 ```
 
@@ -652,6 +816,7 @@ Arquivo central que agrupa e exporta todas as rotas da aplicação.
 - `/login`: Rotas para autenticação
 - `/medicamento`: Rotas para gerenciamento de medicamentos
 - `/usuarios`: Rotas para gerenciamento de usuários
+- `/consulta`: Rotas para gerenciamento de consultas
 
 **Exemplo de Código:**
 ```javascript
@@ -663,6 +828,7 @@ const cadastroRoutes = require('./cadastro');
 const loginRoutes = require('./login');
 const medicamentoRoutes = require('./regMedicamento');
 const usuariosRoutes = require('./usuarios');
+const consultasRoutes = require('./consultas');
 
 // Rota básica para verificar se a API está online
 router.get('/', (req, res) => {
@@ -674,6 +840,7 @@ router.use('/cadastro', cadastroRoutes);
 router.use('/login', loginRoutes);
 router.use('/medicamento', medicamentoRoutes);
 router.use('/usuarios', usuariosRoutes);
+router.use('/consulta', consultasRoutes);
 
 module.exports = router;
 ```
@@ -955,7 +1122,135 @@ module.exports = router;
 ```
 
 
-### 11. **utils/dbhelper.js**
+### 11. **routes/consultas.js**
+Implementa as rotas para gerenciamento de consultas médicas.
+
+**Endpoints:**
+- `POST /consulta`: Agenda nova consulta (exclusivo para médicos)
+- `GET /consulta/medico/:id`: Lista consultas agendadas por um médico
+- `GET /consulta/paciente/:id`: Lista consultas agendadas para um paciente
+
+**Implementação Técnica do POST:**
+1. Valida os dados da requisição (data, hora, local, ids do médico e paciente)
+2. Verifica se o usuário que está agendando é um médico
+3. Verifica se o paciente existe e é do tipo "idoso"
+4. Insere os dados da consulta no banco de dados
+5. Retorna o ID da consulta criada
+
+**Implementação Técnica do GET /medico/:id:**
+1. Extrai o ID do médico dos parâmetros da URL
+2. Busca todas as consultas agendadas por este médico
+3. Inclui os dados do paciente (nome e idade) para cada consulta
+4. Ordena por data e hora das consultas
+
+**Implementação Técnica do GET /paciente/:id:**
+1. Extrai o ID do paciente dos parâmetros da URL
+2. Busca todas as consultas agendadas para este paciente
+3. Inclui o nome do médico para cada consulta
+4. Ordena por data e hora das consultas
+
+**Exemplo de Código:**
+```javascript
+const express = require('express');
+const router = express.Router();
+const db = require('../database/db');
+
+// Rota para cadastrar uma nova consulta (apenas médicos)
+router.post('/', async (req, res) => {
+  try {
+    const { data, hora, local, observacoes, id_medico, id_paciente } = req.body;
+
+    // Verificações básicas
+    if (!data || !hora || !local || !id_medico || !id_paciente) {
+      return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' });
+    }
+
+    // Verificar se o usuário é médico
+    const [medicoRows] = await db.query(
+      'SELECT * FROM usuarios WHERE id = ? AND tipo_usuario = "medico"',
+      [id_medico]
+    );
+
+    if (medicoRows.length === 0) {
+      return res.status(403).json({ error: 'Apenas médicos podem agendar consultas' });
+    }
+
+    // Verificar se o paciente existe e é do tipo idoso
+    const [pacienteRows] = await db.query(
+      'SELECT * FROM usuarios WHERE id = ? AND tipo_usuario = "idoso"',
+      [id_paciente]
+    );
+
+    if (pacienteRows.length === 0) {
+      return res.status(404).json({ error: 'Paciente não encontrado ou não é um idoso' });
+    }
+
+    // Inserir a consulta no banco de dados
+    const [result] = await db.query(
+      'INSERT INTO consultas (data, hora, local, observacoes, id_medico, id_paciente) VALUES (?, ?, ?, ?, ?, ?)',
+      [data, hora, local, observacoes, id_medico, id_paciente]
+    );
+
+    res.status(201).json({
+      id: result.insertId,
+      message: 'Consulta agendada com sucesso'
+    });
+  } catch (error) {
+    console.error('Erro ao agendar consulta:', error);
+    res.status(500).json({ error: 'Erro ao agendar consulta' });
+  }
+});
+
+// Rota para listar consultas de um médico
+router.get('/medico/:id', async (req, res) => {
+  try {
+    const id_medico = req.params.id;
+
+    const [consultas] = await db.query(
+      `SELECT c.*, 
+        p.nome as nome_paciente, 
+        p.idade as idade_paciente
+      FROM consultas c
+      JOIN usuarios p ON c.id_paciente = p.id
+      WHERE c.id_medico = ?
+      ORDER BY c.data ASC, c.hora ASC`,
+      [id_medico]
+    );
+
+    res.json(consultas);
+  } catch (error) {
+    console.error('Erro ao listar consultas do médico:', error);
+    res.status(500).json({ error: 'Erro ao listar consultas' });
+  }
+});
+
+// Rota para listar consultas de um paciente (idoso)
+router.get('/paciente/:id', async (req, res) => {
+  try {
+    const id_paciente = req.params.id;
+
+    const [consultas] = await db.query(
+      `SELECT c.*, 
+        m.nome as nome_medico
+      FROM consultas c
+      JOIN usuarios m ON c.id_medico = m.id
+      WHERE c.id_paciente = ?
+      ORDER BY c.data ASC, c.hora ASC`,
+      [id_paciente]
+    );
+
+    res.json(consultas);
+  } catch (error) {
+    console.error('Erro ao listar consultas do paciente:', error);
+    res.status(500).json({ error: 'Erro ao listar consultas' });
+  }
+});
+
+module.exports = router;
+```
+
+
+### 12. **utils/dbhelper.js**
 Utilitário para facilitar a execução de queries SQL.
 
 **Função Principal:**
@@ -1011,7 +1306,7 @@ module.exports = {
 ```
 
 
-### 12. **utils/messages.js**
+### 13. **utils/messages.js**
 Módulo que centraliza as mensagens do sistema.
 
 **Objetivo:** 
@@ -1061,6 +1356,18 @@ const MESSAGES = {
       FETCH_IDOSOS: "Erro ao buscar a lista de idosos.",
       FETCH_MEDICOS: "Erro ao buscar a lista de médicos."
     }
+  },
+  
+  CONSULTAS: {
+    SUCCESS: {
+      CREATE: "Consulta agendada com sucesso!"
+    },
+    ERROR: {
+      ID_MEDICO_REQUIRED: "ID do médico é obrigatório.",
+      ID_PACIENTE_REQUIRED: "ID do paciente é obrigatório.",
+      FETCH: "Erro ao buscar consultas.",
+      GENERIC: "Erro interno do servidor."
+    }
   }
 };
 
@@ -1068,12 +1375,13 @@ module.exports = MESSAGES;
 ```
 
 
-### 13. **utils/validation.js**
+### 14. **utils/validation.js**
 Define esquemas de validação usando Joi.
 
 **Esquemas Disponíveis:**
 - `userSchema`: Validação para dados de usuário
 - `medicamentoSchema`: Validação para dados de medicamento
+- `consultaSchema`: Validação para dados de consulta
 
 **Implementação do userSchema:**
 - Valida presença e formato de todos os campos de usuário
@@ -1084,6 +1392,11 @@ Define esquemas de validação usando Joi.
 - Valida presença e formato de todos os campos de medicamento
 - Garante que datas sejam no formato correto
 - Verifica presença dos IDs do usuário e do médico
+
+**Implementação do consultaSchema:**
+- Valida presença e formato de todos os campos de consulta
+- Garante que datas sejam no formato correto
+- Verifica presença dos IDs do médico e do paciente
 
 **Exemplo de Código:**
 ```javascript
@@ -1124,9 +1437,22 @@ const medicamentoSchema = Joi.object({
   id_medico: Joi.number().integer().required()
 });
 
+// Esquema de validação para consultas
+const consultaSchema = Joi.object({
+  data: Joi.date().iso().required(),
+  hora: Joi.string().pattern(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required().messages({
+    'string.pattern.base': 'Formato de hora inválido. Use HH:MM'
+  }),
+  local: Joi.string().required(),
+  observacoes: Joi.string().optional(),
+  id_medico: Joi.number().integer().required(),
+  id_paciente: Joi.number().integer().required()
+});
+
 module.exports = {
   userSchema,
-  medicamentoSchema
+  medicamentoSchema,
+  consultaSchema
 };
 ```
 
@@ -1190,6 +1516,22 @@ O sistema implementa diversas medidas de segurança para proteger os dados dos u
 3. Confirme que a data final é posterior à data inicial.
 4. Verifique se os IDs de usuário e médico são válidos.
 
+### **Erro ao Agendar Consulta**
+**Problema**: Erro 403 ao tentar agendar uma consulta.
+**Solução**:
+1. Verifique se o usuário que está tentando agendar é um médico.
+2. Confirme que todos os campos obrigatórios estão sendo enviados.
+3. Verifique se o paciente existe e é do tipo "idoso".
+4. Confirme que as datas e horários estão em formatos válidos.
+
+### **Erro ao Visualizar Consultas**
+**Problema**: Consultas não aparecem na visualização do médico ou do paciente.
+**Solução**:
+1. Verifique se o ID do usuário (médico ou paciente) está correto.
+2. Confirme que existem consultas agendadas para este usuário.
+3. Verifique os logs do servidor para mais detalhes sobre possíveis erros.
+4. Confirme que todos os relacionamentos no banco de dados estão corretos.
+
 ### **Servidor Não Inicia**
 **Problema**: Erro ao iniciar o servidor Node.js.
 **Solução**:
@@ -1212,4 +1554,4 @@ O sistema implementa diversas medidas de segurança para proteger os dados dos u
 - Monitore os logs do servidor para identificar problemas.
 - Mantenha as dependências atualizadas para evitar vulnerabilidades.
 
-*Última atualização: 11 de abril de 2025*
+*Última atualização: 12 de abril de 2025*

@@ -24,3 +24,16 @@ CREATE TABLE IF NOT EXISTS medicamentos (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
+
+CREATE TABLE IF NOT EXISTS consultas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data DATE NOT NULL,
+    hora TIME NOT NULL,
+    local VARCHAR(255),
+    observacoes TEXT,
+    id_medico INT NOT NULL,
+    id_paciente INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_medico) REFERENCES usuarios(id),
+    FOREIGN KEY (id_paciente) REFERENCES usuarios(id)
+);

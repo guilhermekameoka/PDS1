@@ -4,88 +4,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agendar Consulta</title>
+  <title>Consultas Médicas</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .placeholder-label {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #a0aec0;
-      pointer-events: none;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .relative input:focus+.placeholder-label,
-    .relative input:not(:placeholder-shown)+.placeholder-label,
-    .relative input.filled+.placeholder-label {
-      top: 4px;
-      left: 10px;
-      font-size: 12px;
-      color: #4a5568;
-    }
-  </style>
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
     <div class="flex justify-center items-center mb-4 relative">
-      <a href="./agendaMedicaIdoso.html" class="absolute left-0">
+      <a href="./idoso.html" class="absolute left-0">
         <img src="../../assets/arrrowBack.png" alt="Voltar" class="h-6 w-6">
       </a>
       <img src="./../../assets/Logo sem fundo.png" alt="Saúde Sênior" class="w-32" />
     </div>
-    <h2 class="text-2xl font-bold items-center justify-center flex mb-3">Agendar Consulta</h2>
-
-    <select class="w-full border border-gray-300 p-2 rounded-md mb-3" aria-label="Especialidade Médica">
-      <option value="" disabled selected>Especialidade Médica</option>
-      <option>Cardiologia</option>
-      <option>Dermatologia</option>
-      <option>Ortopedia</option>
-      <option>Pediatria</option>
-      <option>Oftalmologia</option>
-      <option>Ginecologia</option>
-    </select>
-
-    <select class="w-full border border-gray-300 p-2 rounded-md mb-3" aria-label="Hospital">
-      <option value="" disabled selected>Hospital</option>
-      <option>Hospital das Clínicas</option>
-      <option>Hospital São Lucas</option>
-      <option>Hospital Santa Maria</option>
-      <option>Hospital Vida e Saúde</option>
-    </select>
-
-    <select class="w-full border border-gray-300 p-2 rounded-md mb-3" aria-label="Médico">
-      <option value="" disabled selected>Médico</option>
-      <option>Dr. Caio</option>
-      <option>Dra. Maria Oliveira</option>
-      <option>Dr. Carlos Souza</option>
-      <option>Dra. Ana Costa</option>
-    </select>
-
-    <div class="relative mb-3">
-      <input type="date" id="data"
-        class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent"
-        placeholder=" " />
-      <label for="data" class="placeholder-label">Data</label>
+    
+    <h2 class="text-2xl font-bold mb-4">Agendamento de Consultas</h2>
+    
+    <div class="bg-blue-50 p-4 rounded-lg mb-6">
+      <p class="text-blue-800 mb-2">Para sua comodidade, as consultas são agendadas pelo seu médico.</p>
+      <p class="text-blue-600">Você pode visualizar todas as suas consultas agendadas na seção "Minhas Consultas".</p>
     </div>
-
-    <div class="relative mb-3">
-      <input type="time" id="hora"
-        class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent"
-        placeholder=" " />
-      <label for="hora" class="placeholder-label">Hora</label>
-    </div>
-
-    <input type="text" placeholder="Rua" class="w-full border border-gray-300 p-2 rounded-md mb-3" />
-
-    <textarea placeholder="Observações" class="w-full border border-gray-300 p-2 rounded-md mb-3"></textarea>
-
-    <button type="submit" class="w-full bg-blue-800 text-white p-3 rounded-lg hover:bg-blue-900">
-      Agendar
-    </button>
+    
+    <img src="../../assets/Lifesavers Stethoscope from Saude Senior.png" alt="Estetoscópio" class="w-32 h-32 mx-auto mb-6">
+    
+    <a href="./agendaMedicaIdoso.html" class="block w-full bg-blue-800 text-white p-3 rounded-lg hover:bg-blue-900 text-center">
+      Ver Minhas Consultas
+    </a>
   </div>
+
+  <script>
+    // Redirecionar automaticamente após 5 segundos
+    setTimeout(function() {
+      window.location.href = "./agendaMedicaIdoso.html";
+    }, 5000);
+  </script>
 </body>
 
 </html>

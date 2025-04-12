@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agendar Consulta</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../../js/agendarConsulta.js"></script>
   <style>
     .placeholder-label {
       position: absolute;
@@ -38,44 +39,34 @@
     </div>
     <h2 class="text-2xl font-bold items-center justify-center flex mb-3">Agendar Consulta</h2>
 
-    <select class="w-full border border-gray-300 p-2 rounded-md mb-3">
-      <option>Especialidade Médica</option>
-      <option>Cardiologia</option>
-      <option>Dermatologia</option>
-      <option>Ortopedia</option>
-      <option>Pediatria</option>
-      <option>Oftalmologia</option>
-      <option>Ginecologia</option>
-    </select>
-    <select class="w-full border border-gray-300 p-2 rounded-md mb-3">
-      <option>Hospital</option>
-    </select>
+    <form id="consulta-form" class="space-y-4">
+      <!-- Campo de seleção do paciente (idoso) -->
+      <select id="paciente" class="w-full border border-gray-300 p-2 rounded-md mb-3" required>
+        <option value="" disabled selected>Selecione o paciente</option>
+        <!-- Os pacientes serão carregados via JavaScript -->
+      </select>
 
-    <div class="relative mb-3">
-      <input type="text" placeholder="Paciente" class="w-full border border-gray-300 p-2 rounded-md mb-3" />
-    </div>
+      <div class="relative mb-3">
+        <input type="date" id="data"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
 
-    <div class="relative mb-3">
-      <input type="date" id="data"
-        class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent"
-        placeholder=" " />
-      <label for="data" class="placeholder-label">Data</label>
-    </div>
+      <div class="relative mb-3">
+        <input type="time" id="hora"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
 
-    <div class="relative mb-3">
-      <input type="time" id="hora"
-        class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent"
-        placeholder=" " />
-      <label for="hora" class="placeholder-label">Hora</label>
-    </div>
+      <input type="text" id="local" placeholder="Local da consulta" class="w-full border border-gray-300 p-2 rounded-md mb-3" required />
+      <textarea id="observacoes" placeholder="Observações" class="w-full border border-gray-300 p-2 rounded-md mb-3"></textarea>
 
-    <input type="text" placeholder="Rua" class="w-full border border-gray-300 p-2 rounded-md mb-3" />
-    <textarea placeholder="Observações" class="w-full border border-gray-300 p-2 rounded-md mb-3"></textarea>
-
-    <button type="submit" class="w-full bg-blue-800 text-white p-3 rounded-lg hover:bg-blue-900">
-      Agendar
-    </button>
+      <button type="submit" class="w-full bg-blue-800 text-white p-3 rounded-lg hover:bg-blue-900">
+        Agendar
+      </button>
+    </form>
   </div>
+
+  <!-- Script para carregar a lista de pacientes -->
+  <script src="../../js/carregarPacientes.js"></script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro de Consultas</title>
+    <title>Agenda Médica</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-blue-100 min-h-screen p-4">
@@ -12,7 +12,7 @@
         <button class="text-gray-600 hover:text-gray-800"><img src="../../assets/arrrowBack.png" alt="arrrowBack" class="h-6 w-6"></button>
       </a>
       <div class="bg-blue-200 p-4 rounded-lg flex items-center justify-between">
-        <h1 class="text-lg font-semibold">Registro de Consultas</h1>
+        <h1 class="text-lg font-semibold">Minha Agenda de Consultas</h1>
         <div class="w-20 h20">
           <img
             src="../../assets/Lifesavers Stethoscope from Saude Senior.png"
@@ -24,41 +24,14 @@
 
       <input
         type="text"
-        placeholder="Pesquisar"
+        id="search-consulta"
+        placeholder="Pesquisar paciente"
         class="w-full mt-4 p-2 border rounded-lg"
       />
 
-      <div class="mt-4 space-y-3">
-        <div class="bg-white p-4 rounded-lg shadow flex items-center">
-          <div class="flex-1">
-            <p class="font-medium">Franciisco Silva</p>
-            <p class="text-blue-500">15/05 17H</p>
-          </div>
-          <div
-            class="w-10 h-10 bg-purple-300 rounded-full flex items-center justify-center"
-          >
-            <img
-              src="../../assets/Lifesavers Avatar from Saude Senior.png"
-              alt="Avatar"
-              class="rounded-full"
-            />
-          </div>
-        </div>
-        <div class="bg-white p-4 rounded-lg shadow flex items-center">
-          <div class="flex-1">
-            <p class="font-medium">Vilma Oliveira</p>
-            <p class="text-blue-500">15/05 12H</p>
-          </div>
-          <div
-            class="w-10 h-10 bg-purple-300 rounded-full flex items-center justify-center"
-          >
-            <img
-              src="../../assets/Lifesavers Avatar from Saude Senior.png"
-              alt="Avatar"
-              class="rounded-full"
-            />
-          </div>
-        </div>
+      <div id="consultas-container" class="mt-4 space-y-3">
+        <!-- Consultas serão carregadas aqui via JavaScript -->
+        <div class="text-center text-gray-500 my-4">Carregando consultas...</div>
       </div>
     </div>
     <a href="./agendarConsulta.html">
@@ -68,5 +41,7 @@
         +
       </button>
     </a>
+
+    <script src="../../js/listarConsultasMedico.js"></script>
   </body>
 </html>

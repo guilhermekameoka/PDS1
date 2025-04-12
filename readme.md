@@ -31,7 +31,7 @@ O sistema **Saúde Sênior** foi desenvolvido para resolver o problema da organi
 
 A solução envolve uma aplicação que permite:
 - 💊 Registro e acompanhamento de medicamentos
-- 📅 Agendamento de consultas médicas
+- 📅 Agendamento e visualização de consultas médicas
 - 🚑 Sistema de chamada de emergência
 - 📊 Compartilhamento de informações de saúde
 - 📱 Integração com dispositivos wearables para monitoramento biométrico em tempo real
@@ -430,6 +430,99 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
     "error": "Erro ao buscar a lista de idosos."
   }
   ```
+
+### 6. **Agendamento de Consultas**
+**Rota:** `POST /consulta`
+
+**Descrição:** Permite que médicos agendem consultas para pacientes idosos.
+
+**Corpo da Requisição:**
+```json
+{
+  "data": "2025-04-20",
+  "hora": "14:30",
+  "local": "Hospital Santa Maria - Consultório 302",
+  "observacoes": "Trazer exames anteriores",
+  "id_medico": 15,
+  "id_paciente": 42
+}
+```
+
+**Resposta de Sucesso:**
+- **Status:** `201 Created`
+```json
+{
+  "id": 25,
+  "message": "Consulta agendada com sucesso"
+}
+```
+
+**Possíveis Erros:**
+- **400 Bad Request:**
+  ```json
+  {
+    "error": "Todos os campos obrigatórios devem ser preenchidos"
+  }
+  ```
+- **403 Forbidden:**
+  ```json
+  {
+    "error": "Apenas médicos podem agendar consultas"
+  }
+  ```
+- **500 Internal Server Error:**
+  ```json
+  {
+    "error": "Erro ao agendar consulta"
+  }
+  ```
+
+### 7. **Visualização de Consultas do Médico**
+**Rota:** `GET /consulta/medico/:id`
+
+**Descrição:** Retorna todas as consultas agendadas por um médico específico.
+
+**Parâmetros da URL:**
+- `id`: ID do médico.
+
+**Resposta de Sucesso:**
+- **Status:** `200 OK`
+```json
+[
+  {
+    "id": 25,
+    "data": "2025-04-20",
+    "hora": "14:30",
+    "local": "Hospital Santa Maria - Consultório 302",
+    "observacoes": "Trazer exames anteriores",
+    "nome_paciente": "João Silva",
+    "idade_paciente": 65
+  }
+]
+```
+
+### 8. **Visualização de Consultas do Paciente**
+**Rota:** `GET /consulta/paciente/:id`
+
+**Descrição:** Retorna todas as consultas agendadas para um paciente específico.
+
+**Parâmetros da URL:**
+- `id`: ID do paciente.
+
+**Resposta de Sucesso:**
+- **Status:** `200 OK`
+```json
+[
+  {
+    "id": 25,
+    "data": "2025-04-20",
+    "hora": "14:30",
+    "local": "Hospital Santa Maria - Consultório 302",
+    "observacoes": "Trazer exames anteriores",
+    "nome_medico": "Dra. Ana Souza"
+  }
+]
+```
 
 Para documentação mais detalhada da API, consulte o arquivo [docs.md](./docs.md).
 
