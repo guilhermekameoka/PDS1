@@ -19,6 +19,7 @@
 - [Instalação](#instalação)
 - [Configuração](#configuração-das-variáveis-de-ambiente)
 - [Executando o Projeto](#executando-o-projeto)
+- [Utilizando o Sistema](#-utilizando-o-sistema)
 - [API Backend](#funcionalidades-do-backend)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
@@ -51,10 +52,10 @@ Desta forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 | Nome | Função | GitHub |
 |------|--------|--------|
 | Guilherme R. Kameoka | Backend developer | [@guilhermekameoka](https://github.com/guilhermekameoka) |
-| Carlos Livius | Front-end Developer | [@githubuser](https://github.com) |
-| Esdras | Back-end Developer | [@githubuser](https://github.com) |
-| Pedro Alexandre | UI/UX Designer | [@githubuser](https://github.com) |
-| Guilherme Rafael | Database Engineer | [@githubuser](https://github.com) |
+| Carlos Livius | Front-end Developer | [@CarlosLivius](https://github.com/CarlosLivius) |
+| Esdras | Back-end Developer | [@esdrasoliveiraj](https://github.com/esdrasoliveiraj) |
+| Pedro Alexandre | Front-end developer | [@PedroA-Gondim](https://github.com/PedroA-Gondim) |
+| Guilherme Rafael | Front-end developer | [@GuilhermeRafaell](https://github.com/GuilhermeRafaell) |
 
 [Documentos do Projeto](https://ufubr-my.sharepoint.com/:w:/g/personal/guilherme_cerqueira_ufu_br/ET1Nuk7voaZEl4WjN0I6fIgBzidfA1-Ss762blLxvqqlHg?e=0UtQPx)
 
@@ -194,7 +195,28 @@ npm run start
 
 Este comando iniciará o servidor em modo de desenvolvimento. Você poderá acessar a aplicação em `http://localhost:3000`.
 
+## 👨‍🏫 Utilizando o Sistema
+
+### 1. Acesse o endpoint localhost:3000
+
 ![Tutorial](/assets/CleanShot%202025-04-11%20at%2000.01.03@2x.png)
+
+### 2. Efetue o cadastro
+
+![Cadastro](/assets/cadastro.png)
+
+### 3. Efetue o login
+
+![Login](/assets/login.png)
+
+### 4. Escolha dentre as opções disponíveis (Home Idoso)
+
+![Idoso](/assets/tela_idoso.png)
+
+
+### 5. Escolha dentre as opções disponíveis (Home Médico)
+
+![Medico](/assets/tela_medico.png)
 
 ---
 
