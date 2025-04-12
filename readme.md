@@ -22,7 +22,6 @@
 - [Utilizando o Sistema](#-utilizando-o-sistema)
 - [API Backend](#funcionalidades-do-backend)
 - [Contribuição](#contribuição)
-- [Licença](#licença)
 
 ---
 
