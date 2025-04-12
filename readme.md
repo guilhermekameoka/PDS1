@@ -439,10 +439,5 @@ Para documentação mais detalhada da API, consulte o arquivo [docs.md](./docs.m
 
 ---
 
-## 📄 Licença
-
-Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para mais detalhes.
-
----
 
 Desenvolvido como parte do projeto de Programação e Desenvolvimento de Software I, Universidade Federal de Uberlândia - 2025.
