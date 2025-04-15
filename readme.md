@@ -19,7 +19,7 @@
 - [Instalação](#instalação)
 - [Configuração](#configuração-das-variáveis-de-ambiente)
 - [Executando o Projeto](#executando-o-projeto)
-- [Utilizando o Sistema](#-utilizando-o-sistema)
+- [Utilizando o Sistema](#utilizando-o-sistema)
 - [API Backend](#funcionalidades-do-backend)
 - [Contribuição](#contribuição)
 
