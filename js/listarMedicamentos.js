@@ -88,22 +88,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  async function excluirMedicamento(id, elemento) {
-    if (confirm("Tem certeza que deseja excluir esse medicamento ?")) {
-      try {
-        const response = await fetch(`http://localhost:3000/medicamento/${id}`, {
+  // Função para excluir medicamento
+  async function excluirMedicamento(medicamentoId, elementoDOM) {
+    // Confirma com o usuário antes de excluir
+    if (!confirm("Tem certeza que deseja excluir este medicamento?")) {
+      return;
+    }
+
+    try {
+      // Faz a requisição DELETE para a API usando a rota específica para exclusão
+      const response = await fetch(
+        `http://localhost:3000/excluir-medicamento/${medicamentoId}`,
+        {
           method: "DELETE",
-        });
-        if (!response.ok) {
-          throw new Error("Erro ao excluir medicamento");
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-        // Remove elemento da lista
-        elemento.remove();
-        alert("Medicamento excluído com sucesso!");
-      } catch (error) {
-        console.log("Erro ao excluir medicamento:", error);
-        alert("Erro ao excluir medicamento");
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao excluir medicamento");
       }
+
+      // Se a exclusão for bem sucedida, remove o elemento da DOM
+      elementoDOM.remove();
+      
+      // Verifica se não há mais medicamentos na lista
+      if (medicamentosContainer.children.length === 0) {
+        medicamentosContainer.innerHTML =
+          '<p class="text-center text-gray-500 my-4">Nenhum medicamento registrado</p>';
+      }
+
+      // Exibe mensagem de sucesso
+      alert("Medicamento excluído com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir medicamento:", error);
+      alert("Erro ao excluir medicamento. Tente novamente mais tarde.");
     }
   }
 

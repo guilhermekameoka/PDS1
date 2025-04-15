@@ -53,8 +53,6 @@ router.get("/usuario/:id", async (req, res) => {
       WHERE m.id_usuario = ?
       ORDER BY m.data_inicial DESC
     `;
-
-    // TODO: Query para remoção de medicamento
     
     const medicamentos = await executeQuery(sql, [userId]);
     
