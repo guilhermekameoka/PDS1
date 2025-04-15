@@ -419,7 +419,43 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
   }
   ```
 
-### 5. **Listagem de Usuários Idosos**
+### 5. **Exclusão de Medicamentos**
+**Rota:** `DELETE /excluir-medicamento/:id`
+
+**Descrição:** Remove um medicamento da lista de medicamentos do usuário.
+
+**Parâmetros da URL:**
+- `id`: ID do medicamento a ser excluído.
+
+**Resposta de Sucesso:**
+- **Status:** `200 OK`
+```json
+{
+  "message": "Medicamento excluído com sucesso"
+}
+```
+
+**Possíveis Erros:**
+- **400 Bad Request:**
+  ```json
+  {
+    "error": "ID do medicamento é obrigatório."
+  }
+  ```
+- **404 Not Found:**
+  ```json
+  {
+    "error": "Medicamento não encontrado."
+  }
+  ```
+- **500 Internal Server Error:**
+  ```json
+  {
+    "error": "Erro ao excluir medicamento."
+  }
+  ```
+
+### 6. **Listagem de Usuários Idosos**
 **Rota:** `GET /usuarios/idosos`
 
 **Descrição:** Retorna a lista de todos os usuários do tipo "idoso".
@@ -443,7 +479,7 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
   }
   ```
 
-### 6. **Agendamento de Consultas**
+### 7. **Agendamento de Consultas**
 **Rota:** `POST /consulta`
 
 **Descrição:** Permite que médicos agendem consultas para pacientes idosos.
@@ -489,7 +525,7 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
   }
   ```
 
-### 7. **Visualização de Consultas do Médico**
+### 8. **Visualização de Consultas do Médico**
 **Rota:** `GET /consulta/medico/:id`
 
 **Descrição:** Retorna todas as consultas agendadas por um médico específico.
@@ -513,7 +549,7 @@ Este comando iniciará o servidor em modo de desenvolvimento. Você poderá aces
 ]
 ```
 
-### 8. **Visualização de Consultas do Paciente**
+### 9. **Visualização de Consultas do Paciente**
 **Rota:** `GET /consulta/paciente/:id`
 
 **Descrição:** Retorna todas as consultas agendadas para um paciente específico.

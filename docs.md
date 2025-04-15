@@ -44,6 +44,7 @@ backend/
 │   ├── index.js              # Agrupa e exporta todas as rotas
 │   ├── login.js              # Rota para autenticação
 │   ├── regMedicamento.js     # Rotas para gerenciar medicamentos
+│   ├── excluirMedicamento.js # Rota para exclusão de medicamentos
 │   └── usuarios.js           # Rotas para gerenciar usuários
 └── utils/
     ├── dbhelper.js           # Funções auxiliares para o banco
@@ -560,6 +561,65 @@ curl -X GET http://localhost:3000/consulta/medico/15
 curl -X GET http://localhost:3000/consulta/paciente/42
 ```
 
+### 11. **routes/excluirMedicamento.js**
+Implementa a rota para exclusão de medicamentos.
+
+**Endpoint:** `DELETE /excluir-medicamento/:id`
+
+**Descrição:** Remove um medicamento específico pelo ID.
+
+**Implementação Técnica:**
+1. Extrai o ID do medicamento dos parâmetros da URL
+2. Verifica se o medicamento existe no banco de dados
+3. Se existir, realiza a exclusão do medicamento
+4. Retorna mensagem de sucesso ou erro apropriada
+
+**Características de Segurança:**
+- Validação do ID do medicamento
+- Verificação da existência antes da exclusão
+- Tratamento adequado de erros
+
+**Exemplo de Código:**
+```javascript
+const express = require('express');
+const router = express.Router();
+const { executeQuery } = require('../utils/dbhelper');
+
+// Rota para excluir um medicamento
+router.delete('/:id', async (req, res) => {
+  try {
+    const medicamentoId = req.params.id;
+    
+    if (!medicamentoId) {
+      return res.status(400).json({ error: "ID do medicamento é obrigatório" });
+    }
+    
+    // Verifica se o medicamento existe antes de excluir
+    const checkSql = "SELECT * FROM medicamentos WHERE id = ?";
+    const medicamento = await executeQuery(checkSql, [medicamentoId]);
+    
+    if (medicamento.length === 0) {
+      return res.status(404).json({ error: "Medicamento não encontrado" });
+    }
+    
+    // Exclui o medicamento
+    const deleteSql = "DELETE FROM medicamentos WHERE id = ?";
+    await executeQuery(deleteSql, [medicamentoId]);
+    
+    res.status(200).json({ message: "Medicamento excluído com sucesso" });
+  } catch (err) {
+    console.error("Erro ao excluir medicamento:", err);
+    res.status(500).json({ error: "Erro ao excluir medicamento" });
+  }
+});
+
+module.exports = router;
+```
+
+**Exemplo de Uso com cURL:**
+```bash
+curl -X DELETE http://localhost:3000/excluir-medicamento/107
+```
 
 ## Detalhamento Técnico dos Componentes
 
@@ -815,6 +875,7 @@ Arquivo central que agrupa e exporta todas as rotas da aplicação.
 - `/cadastro`: Rotas para cadastro de usuários
 - `/login`: Rotas para autenticação
 - `/medicamento`: Rotas para gerenciamento de medicamentos
+- `/excluir-medicamento`: Rota para exclusão de medicamentos
 - `/usuarios`: Rotas para gerenciamento de usuários
 - `/consulta`: Rotas para gerenciamento de consultas
 
@@ -827,6 +888,7 @@ const router = express.Router();
 const cadastroRoutes = require('./cadastro');
 const loginRoutes = require('./login');
 const medicamentoRoutes = require('./regMedicamento');
+const excluirMedicamentoRoutes = require('./excluirMedicamento');
 const usuariosRoutes = require('./usuarios');
 const consultasRoutes = require('./consultas');
 
@@ -839,6 +901,7 @@ router.get('/', (req, res) => {
 router.use('/cadastro', cadastroRoutes);
 router.use('/login', loginRoutes);
 router.use('/medicamento', medicamentoRoutes);
+router.use('/excluir-medicamento', excluirMedicamentoRoutes);
 router.use('/usuarios', usuariosRoutes);
 router.use('/consulta', consultasRoutes);
 
