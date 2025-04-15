@@ -10,18 +10,18 @@
 
 ## 📋 Índice
 
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Demonstração](#demonstração)
-- [Integrantes](#integrantes)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Requisitos](#requisitos)
-- [Instalação](#instalação)
-- [Configuração](#configuração-das-variáveis-de-ambiente)
-- [Executando o Projeto](#executando-o-projeto)
-- [Utilizando o Sistema](#utilizando-o-sistema)
-- [API Backend](#funcionalidades-do-backend)
-- [Contribuição](#contribuição)
+- [Sobre o Projeto](#-sobre-o-projeto)
+- [Demonstração](#-demonstração)
+- [Integrantes](#-integrantes)
+- [Tecnologias Utilizadas](#️-tecnologias-utilizadas)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Requisitos](#️-requisitos)
+- [Instalação](#-instalação)
+- [Configuração](#️-configuração-das-variáveis-de-ambiente)
+- [Executando o Projeto](#️-executando-o-projeto)
+- [Utilizando o Sistema](#-utilizando-o-sistema)
+- [API Backend](#-funcionalidades-do-backend)
+- [Contribuição](#-contribuição)
 
 ---
 
