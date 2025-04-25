@@ -13,13 +13,27 @@ router.use(express.json());
 // Aplica validação do corpo da requisição com base no schema definido
 router.post("/", validate(userSchema), async (req, res) => {
   try {
-    const { nome, idade, email, telefone, cep, rua, numero, cidade, senha, tipo_usuario } = req.body;
+    const {
+      nome,
+      idade,
+      email,
+      telefone,
+      cep,
+      rua,
+      numero,
+      cidade,
+      senha,
+      tipo_usuario,
+    } = req.body;
 
     // Normaliza o email para evitar duplicidades causadas por letras maiúsculas ou espaços extras
     const emailNormalizado = email.trim().toLowerCase();
-    
+
     // Verifica se já existe um usuário cadastrado com o mesmo email
-    const existingUsers = await executeQuery("SELECT * FROM usuarios WHERE email = ?", [emailNormalizado]);
+    const existingUsers = await executeQuery(
+      "SELECT * FROM usuarios WHERE email = ?",
+      [emailNormalizado]
+    );
 
     // Se já houver usuário com o mesmo email, retorna erro
     if (existingUsers && existingUsers.length > 0) {
@@ -34,18 +48,29 @@ router.post("/", validate(userSchema), async (req, res) => {
       INSERT INTO usuarios (nome, idade, email, telefone, cep, rua, numero, cidade, senha, tipo_usuario)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    
+
     // Caso o tipo de usuário não seja informado, define como 'idoso' por padrão
-    const tipoUsuario = tipo_usuario || 'idoso';
-    const values = [nome, idade, emailNormalizado, telefone, cep, rua, numero, cidade, hashedPassword, tipoUsuario];
+    const tipoUsuario = tipo_usuario || "idoso";
+    const values = [
+      nome,
+      idade,
+      emailNormalizado,
+      telefone,
+      cep,
+      rua,
+      numero,
+      cidade,
+      hashedPassword,
+      tipoUsuario,
+    ];
 
     // Retorna resposta de sucesso com ID do novo usuário e o tipo definido
     const result = await executeQuery(sql, values);
 
-    res.status(201).json({ 
-      message: MESSAGES.CADASTRO.SUCCESS, 
+    res.status(201).json({
+      message: MESSAGES.CADASTRO.SUCCESS,
       id: result.insertId,
-      tipo: tipoUsuario
+      tipo: tipoUsuario,
     });
   } catch (err) {
     // Em caso de erro inesperado, registra o erro e retorna resposta 500

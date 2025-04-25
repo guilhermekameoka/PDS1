@@ -19,9 +19,11 @@ router.post("/", async (req, res) => {
 
     // Normaliza o email removendo espaços e convertendo para minúsculas
     const emailNormalizado = email.trim().toLowerCase();
-    
+
     // Busca usuário no banco de dados pelo email informado
-    const users = await executeQuery("SELECT * FROM usuarios WHERE email = ?", [emailNormalizado]);
+    const users = await executeQuery("SELECT * FROM usuarios WHERE email = ?", [
+      emailNormalizado,
+    ]);
 
     // Verifica se o usuário foi encontrado
     if (!users || users.length === 0) {
@@ -29,7 +31,7 @@ router.post("/", async (req, res) => {
     }
 
     const usuario = users[0];
-    
+
     // Compara a senha informada com a senha criptografada no banco
     const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
@@ -41,11 +43,11 @@ router.post("/", async (req, res) => {
     // Se a autenticação for bem sucedida, retorna os dados do usuário
     res.status(200).json({
       message: MESSAGES.LOGIN.SUCCESS,
-      usuario: { 
-        id: usuario.id, 
-        nome: usuario.nome, 
+      usuario: {
+        id: usuario.id,
+        nome: usuario.nome,
         email: usuario.email,
-        tipo: usuario.tipo_usuario || 'idoso'
+        tipo: usuario.tipo_usuario || "idoso",
       },
     });
   } catch (err) {

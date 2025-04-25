@@ -9,7 +9,7 @@ router.get("/idosos", async (req, res) => {
   try {
     const sql = "SELECT id, nome FROM usuarios WHERE tipo_usuario = 'idoso'";
     const usuarios = await executeQuery(sql, []);
-    
+
     res.status(200).json(usuarios);
   } catch (err) {
     console.error("Erro ao buscar idosos:", err);

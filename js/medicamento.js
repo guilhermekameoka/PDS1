@@ -9,17 +9,17 @@ async function cadastrarMedicamento(event) {
 
   // Obtém o ID do usuário médico logado
   const medicoId = localStorage.getItem("usuarioId");
-  
+
   if (!medicoId) {
     alert("Médico não identificado. Por favor, faça login novamente.");
     window.location.href = "../comum/login.html";
     return;
   }
-  
+
   // Obtém o ID do paciente selecionado
   const pacienteSelect = document.getElementById("paciente");
   const pacienteId = pacienteSelect.value;
-  
+
   if (!pacienteId) {
     alert("Por favor, selecione um paciente.");
     return;
@@ -33,7 +33,7 @@ async function cadastrarMedicamento(event) {
     hora: document.getElementById("hora").value,
     dose: document.getElementById("dose").value,
     id_usuario: parseInt(pacienteId), // Usa o ID do paciente selecionado
-    id_medico: parseInt(medicoId)     // Adiciona o ID do médico que está prescrevendo
+    id_medico: parseInt(medicoId), // Adiciona o ID do médico que está prescrevendo
   };
 
   try {
@@ -48,10 +48,15 @@ async function cadastrarMedicamento(event) {
       alert("Medicamento cadastrado com sucesso para o paciente!");
       document.getElementById("medicamento-form").reset();
     } else {
-      alert("Erro: " + (result.error || "Erro desconhecido ao cadastrar medicamento"));
+      alert(
+        "Erro: " +
+          (result.error || "Erro desconhecido ao cadastrar medicamento")
+      );
     }
   } catch (error) {
     console.error("Erro ao cadastrar medicamento:", error);
-    alert("Erro de conexão ao cadastrar medicamento. Verifique sua conexão com a internet.");
+    alert(
+      "Erro de conexão ao cadastrar medicamento. Verifique sua conexão com a internet."
+    );
   }
 }

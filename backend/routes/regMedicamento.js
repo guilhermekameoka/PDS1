@@ -10,7 +10,16 @@ router.use(express.json());
 // Rota para cadastrar medicamento
 router.post("/", validate(medicamentoSchema), async (req, res) => {
   try {
-    const { nome, data_inicial, data_final, frequencia, hora, dose, id_usuario, id_medico } = req.body;
+    const {
+      nome,
+      data_inicial,
+      data_final,
+      frequencia,
+      hora,
+      dose,
+      id_usuario,
+      id_medico,
+    } = req.body;
 
     // Verifica se o id_usuario foi fornecido
     if (!id_usuario) {
@@ -26,11 +35,22 @@ router.post("/", validate(medicamentoSchema), async (req, res) => {
       INSERT INTO medicamentos (nome, data_inicial, data_final, frequencia, hora, dose, id_usuario, id_medico)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    const values = [nome, data_inicial, data_final, frequencia, hora, dose, id_usuario, id_medico];
+    const values = [
+      nome,
+      data_inicial,
+      data_final,
+      frequencia,
+      hora,
+      dose,
+      id_usuario,
+      id_medico,
+    ];
 
     const result = await executeQuery(sql, values);
 
-    res.status(201).json({ message: MESSAGES.MEDICAMENTO.SUCCESS, id: result.insertId });
+    res
+      .status(201)
+      .json({ message: MESSAGES.MEDICAMENTO.SUCCESS, id: result.insertId });
   } catch (err) {
     console.error("Erro ao cadastrar medicamento:", err);
     res.status(500).json({ error: MESSAGES.MEDICAMENTO.SERVER_ERROR });
@@ -41,11 +61,11 @@ router.post("/", validate(medicamentoSchema), async (req, res) => {
 router.get("/usuario/:id", async (req, res) => {
   try {
     const userId = req.params.id;
-    
+
     if (!userId) {
       return res.status(400).json({ error: "ID do usuário é obrigatório" });
     }
-    
+
     const sql = `
       SELECT m.*, u.nome as medico_nome
       FROM medicamentos m
@@ -53,9 +73,9 @@ router.get("/usuario/:id", async (req, res) => {
       WHERE m.id_usuario = ?
       ORDER BY m.data_inicial DESC
     `;
-    
+
     const medicamentos = await executeQuery(sql, [userId]);
-    
+
     res.status(200).json(medicamentos);
   } catch (err) {
     console.error("Erro ao listar medicamentos:", err);

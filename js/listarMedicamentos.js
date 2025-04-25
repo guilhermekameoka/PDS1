@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const medicamentosContainer = document.getElementById("medicamentos-container");
+  const medicamentosContainer = document.getElementById(
+    "medicamentos-container"
+  );
   const searchInput = document.getElementById("search-medicamento");
 
   // Carrega os medicamentos do usuário
@@ -49,7 +51,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Exibe os medicamentos na página
       medicamentos.forEach((medicamento) => {
-        const dataInicial = new Date(medicamento.data_inicial).toLocaleDateString();
+        const dataInicial = new Date(
+          medicamento.data_inicial
+        ).toLocaleDateString();
         const dataFinal = new Date(medicamento.data_final).toLocaleDateString();
 
         const medicamentoElement = document.createElement("div");
@@ -75,9 +79,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
 
         // Adiciona evento ao botão de exclusão
-        medicamentoElement.querySelector(".delete-btn").addEventListener("click", () => {
-          excluirMedicamento(medicamento.id, medicamentoElement);
-        });
+        medicamentoElement
+          .querySelector(".delete-btn")
+          .addEventListener("click", () => {
+            excluirMedicamento(medicamento.id, medicamentoElement);
+          });
 
         medicamentosContainer.appendChild(medicamentoElement);
       });
@@ -113,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Se a exclusão for bem sucedida, remove o elemento da DOM
       elementoDOM.remove();
-      
+
       // Verifica se não há mais medicamentos na lista
       if (medicamentosContainer.children.length === 0) {
         medicamentosContainer.innerHTML =

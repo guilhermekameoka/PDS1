@@ -10,7 +10,7 @@ const userSchema = Joi.object({
   numero: Joi.string().required(),
   cidade: Joi.string().required(),
   senha: Joi.string().min(6).required(),
-  tipo_usuario: Joi.string().valid('medico', 'idoso', 'cuidador')
+  tipo_usuario: Joi.string().valid("medico", "idoso", "cuidador"),
 });
 
 const medicamentoSchema = Joi.object({
@@ -21,7 +21,7 @@ const medicamentoSchema = Joi.object({
   hora: Joi.string().required(),
   dose: Joi.string().required(),
   id_usuario: Joi.number().positive().required(),
-  id_medico: Joi.number().positive().required()
+  id_medico: Joi.number().positive().required(),
 });
 
 module.exports = {

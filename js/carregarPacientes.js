@@ -1,17 +1,19 @@
 document.addEventListener("DOMContentLoaded", async () => {
   // Verifica se o usuário está logado como médico
   const usuarioTipo = localStorage.getItem("usuarioTipo");
-  
+
   if (usuarioTipo !== "medico") {
-    console.error("Acesso não autorizado. Esta função é exclusiva para médicos.");
+    console.error(
+      "Acesso não autorizado. Esta função é exclusiva para médicos."
+    );
     return;
   }
-  
+
   const pacienteSelect = document.getElementById("paciente");
-  
+
   // Desabilita o select enquanto carrega os dados
   pacienteSelect.disabled = true;
-  
+
   try {
     // Busca a lista de pacientes (idosos) da API
     const response = await fetch("http://localhost:3000/usuarios/idosos", {
@@ -20,16 +22,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         "Content-Type": "application/json",
       },
     });
-    
+
     if (!response.ok) {
       throw new Error("Erro ao carregar a lista de pacientes");
     }
-    
+
     const pacientes = await response.json();
-    
+
     // Adiciona as opções de pacientes ao select
     if (pacientes && pacientes.length > 0) {
-      pacientes.forEach(paciente => {
+      pacientes.forEach((paciente) => {
         const option = document.createElement("option");
         option.value = paciente.id;
         option.textContent = paciente.nome;
@@ -45,15 +47,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   } catch (error) {
     console.error("Erro ao carregar pacientes:", error);
-    
+
     // Em caso de erro, adiciona opções de exemplo para teste
     const pacientesTeste = [
       { id: 1, nome: "Francisco Silva" },
       { id: 2, nome: "Vilma Oliveira" },
-      { id: 3, nome: "João Pereira" }
+      { id: 3, nome: "João Pereira" },
     ];
-    
-    pacientesTeste.forEach(paciente => {
+
+    pacientesTeste.forEach((paciente) => {
       const option = document.createElement("option");
       option.value = paciente.id;
       option.textContent = paciente.nome;

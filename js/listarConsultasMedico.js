@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
   // Obtém o ID do médico logado do localStorage
   const medicoId = localStorage.getItem("usuarioId");
-  
+
   if (!medicoId) {
     alert("Médico não identificado. Por favor, faça login novamente.");
     window.location.href = "../comum/login.html";
     return;
   }
-  
+
   // Verifica se é um médico
   const usuarioTipo = localStorage.getItem("usuarioTipo");
   if (usuarioTipo !== "medico") {
@@ -15,47 +15,53 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "../comum/home.html";
     return;
   }
-  
+
   const consultasContainer = document.getElementById("consultas-container");
   const searchInput = document.getElementById("search-consulta");
-  
+
   // Carrega as consultas do médico
   await carregarConsultas();
-  
+
   // Adiciona evento de pesquisa
   if (searchInput) {
     searchInput.addEventListener("input", filtrarConsultas);
   }
-  
+
   // Função para carregar consultas do médico
   async function carregarConsultas() {
     try {
       // Exibe mensagem de carregamento
-      consultasContainer.innerHTML = '<p class="text-center text-gray-500 my-4">Carregando consultas...</p>';
-      
+      consultasContainer.innerHTML =
+        '<p class="text-center text-gray-500 my-4">Carregando consultas...</p>';
+
       // Faz a requisição para a API
-      const response = await fetch(`http://localhost:3000/consulta/medico/${medicoId}`);
-      
+      const response = await fetch(
+        `http://localhost:3000/consulta/medico/${medicoId}`
+      );
+
       if (!response.ok) {
         throw new Error("Erro ao carregar consultas");
       }
-      
+
       const consultas = await response.json();
-      
+
       // Limpa o container
       consultasContainer.innerHTML = "";
-      
+
       // Verifica se há consultas para exibir
       if (consultas.length === 0) {
-        consultasContainer.innerHTML = '<p class="text-center text-gray-500 my-4">Nenhuma consulta agendada</p>';
+        consultasContainer.innerHTML =
+          '<p class="text-center text-gray-500 my-4">Nenhuma consulta agendada</p>';
         return;
       }
-      
+
       // Organiza consultas por data
       const consultasOrganizadas = organizarPorData(consultas);
-      
+
       // Exibe as consultas organizadas na página
-      for (const [data, consultasData] of Object.entries(consultasOrganizadas)) {
+      for (const [data, consultasData] of Object.entries(
+        consultasOrganizadas
+      )) {
         // Adiciona cabeçalho de data se houver mais de um dia
         if (Object.keys(consultasOrganizadas).length > 1) {
           const headerDate = document.createElement("h3");
@@ -63,13 +69,15 @@ document.addEventListener("DOMContentLoaded", async () => {
           headerDate.textContent = formatarData(data);
           consultasContainer.appendChild(headerDate);
         }
-        
+
         // Adiciona cada consulta do dia
-        consultasData.forEach(consulta => {
+        consultasData.forEach((consulta) => {
           const consultaElement = document.createElement("div");
-          consultaElement.className = "bg-white p-4 rounded-lg shadow flex items-center mb-3 consulta-item";
-          consultaElement.dataset.paciente = consulta.nome_paciente.toLowerCase();
-          
+          consultaElement.className =
+            "bg-white p-4 rounded-lg shadow flex items-center mb-3 consulta-item";
+          consultaElement.dataset.paciente =
+            consulta.nome_paciente.toLowerCase();
+
           consultaElement.innerHTML = `
             <div class="flex-1">
               <p class="font-medium">${consulta.nome_paciente}</p>
@@ -80,27 +88,28 @@ document.addEventListener("DOMContentLoaded", async () => {
               <img src="../../assets/Lifesavers Avatar from Saude Senior.png" alt="Avatar" class="rounded-full">
             </div>
           `;
-          
+
           // Adiciona tooltip para mostrar observações ao passar o mouse
           if (consulta.observacoes) {
             consultaElement.title = `Observações: ${consulta.observacoes}`;
           }
-          
+
           consultasContainer.appendChild(consultaElement);
         });
       }
     } catch (error) {
       console.error("Erro ao carregar consultas:", error);
-      consultasContainer.innerHTML = '<p class="text-center text-red-500 my-4">Erro ao carregar consultas. Tente novamente mais tarde.</p>';
+      consultasContainer.innerHTML =
+        '<p class="text-center text-red-500 my-4">Erro ao carregar consultas. Tente novamente mais tarde.</p>';
     }
   }
-  
+
   // Função para filtrar consultas com base na pesquisa
   function filtrarConsultas() {
     const termo = searchInput.value.toLowerCase().trim();
     const consultas = document.querySelectorAll(".consulta-item");
-    
-    consultas.forEach(item => {
+
+    consultas.forEach((item) => {
       const paciente = item.dataset.paciente;
       if (paciente.includes(termo)) {
         item.style.display = "flex";
@@ -108,15 +117,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         item.style.display = "none";
       }
     });
-    
+
     // Se não houver resultados visíveis após a filtragem
     let todosOcultos = true;
-    consultas.forEach(item => {
+    consultas.forEach((item) => {
       if (item.style.display !== "none") {
         todosOcultos = false;
       }
     });
-    
+
     // Exibe mensagem se nenhum resultado for encontrado
     const nenhumResultado = document.getElementById("nenhum-resultado");
     if (todosOcultos && termo !== "") {
@@ -131,44 +140,54 @@ document.addEventListener("DOMContentLoaded", async () => {
       nenhumResultado.remove();
     }
   }
-  
+
   // Função para organizar consultas por data
   function organizarPorData(consultas) {
     const organizadas = {};
-    
-    consultas.forEach(consulta => {
+
+    consultas.forEach((consulta) => {
       const data = consulta.data.split("T")[0]; // Formato ISO
-      
+
       if (!organizadas[data]) {
         organizadas[data] = [];
       }
-      
+
       organizadas[data].push(consulta);
     });
-    
+
     // Ordena cada grupo de consultas por hora
     for (const data in organizadas) {
       organizadas[data].sort((a, b) => {
-        return new Date(`2000-01-01T${a.hora}`) - new Date(`2000-01-01T${b.hora}`);
+        return (
+          new Date(`2000-01-01T${a.hora}`) - new Date(`2000-01-01T${b.hora}`)
+        );
       });
     }
-    
+
     return organizadas;
   }
-  
+
   // Função para formatar data de YYYY-MM-DD para DD/MM/YYYY
   function formatarData(dataISO) {
     const data = new Date(dataISO);
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    
+    const dia = String(data.getDate()).padStart(2, "0");
+    const mes = String(data.getMonth() + 1).padStart(2, "0");
+
     // Adiciona nome do dia da semana
-    const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    const diasSemana = [
+      "Domingo",
+      "Segunda-feira",
+      "Terça-feira",
+      "Quarta-feira",
+      "Quinta-feira",
+      "Sexta-feira",
+      "Sábado",
+    ];
     const diaSemana = diasSemana[data.getDay()];
-    
+
     return `${diaSemana}, ${dia}/${mes}`;
   }
-  
+
   // Função para formatar hora de HH:MM:SS para HH:MM
   function formatarHora(horaCompleta) {
     return horaCompleta.substr(0, 5);

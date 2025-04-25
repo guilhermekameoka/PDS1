@@ -25,7 +25,9 @@ app.get("/", (req, res) => {
 
 // Rota dinâmica para páginas HTML
 app.get("/:page", (req, res) => {
-  const page = req.params.page.endsWith(".html") ? req.params.page : `${req.params.page}.html`;
+  const page = req.params.page.endsWith(".html")
+    ? req.params.page
+    : `${req.params.page}.html`;
   const filePath = path.join(config.STATIC_PATH, `comum/${page}`);
 
   res.sendFile(filePath, (err) => {

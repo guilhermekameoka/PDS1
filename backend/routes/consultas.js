@@ -1,15 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const db = require('../database/db');
+const db = require("../database/db");
 
 // Rota para cadastrar uma nova consulta (apenas médicos)
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { data, hora, local, observacoes, id_medico, id_paciente } = req.body;
 
     // Verificações básicas
     if (!data || !hora || !local || !id_medico || !id_paciente) {
-      return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' });
+      return res
+        .status(400)
+        .json({ error: "Todos os campos obrigatórios devem ser preenchidos" });
     }
 
     // Verificar se o usuário é médico
@@ -19,7 +21,9 @@ router.post('/', async (req, res) => {
     );
 
     if (medicoRows.length === 0) {
-      return res.status(403).json({ error: 'Apenas médicos podem agendar consultas' });
+      return res
+        .status(403)
+        .json({ error: "Apenas médicos podem agendar consultas" });
     }
 
     // Verificar se o paciente existe e é do tipo idoso
@@ -29,27 +33,29 @@ router.post('/', async (req, res) => {
     );
 
     if (pacienteRows.length === 0) {
-      return res.status(404).json({ error: 'Paciente não encontrado ou não é um idoso' });
+      return res
+        .status(404)
+        .json({ error: "Paciente não encontrado ou não é um idoso" });
     }
 
     // Inserir a consulta no banco de dados
     const [result] = await db.query(
-      'INSERT INTO consultas (data, hora, local, observacoes, id_medico, id_paciente) VALUES (?, ?, ?, ?, ?, ?)',
+      "INSERT INTO consultas (data, hora, local, observacoes, id_medico, id_paciente) VALUES (?, ?, ?, ?, ?, ?)",
       [data, hora, local, observacoes, id_medico, id_paciente]
     );
 
     res.status(201).json({
       id: result.insertId,
-      message: 'Consulta agendada com sucesso'
+      message: "Consulta agendada com sucesso",
     });
   } catch (error) {
-    console.error('Erro ao agendar consulta:', error);
-    res.status(500).json({ error: 'Erro ao agendar consulta' });
+    console.error("Erro ao agendar consulta:", error);
+    res.status(500).json({ error: "Erro ao agendar consulta" });
   }
 });
 
 // Rota para listar consultas de um médico
-router.get('/medico/:id', async (req, res) => {
+router.get("/medico/:id", async (req, res) => {
   try {
     const id_medico = req.params.id;
 
@@ -66,13 +72,13 @@ router.get('/medico/:id', async (req, res) => {
 
     res.json(consultas);
   } catch (error) {
-    console.error('Erro ao listar consultas do médico:', error);
-    res.status(500).json({ error: 'Erro ao listar consultas' });
+    console.error("Erro ao listar consultas do médico:", error);
+    res.status(500).json({ error: "Erro ao listar consultas" });
   }
 });
 
 // Rota para listar consultas de um paciente (idoso)
-router.get('/paciente/:id', async (req, res) => {
+router.get("/paciente/:id", async (req, res) => {
   try {
     const id_paciente = req.params.id;
 
@@ -88,8 +94,8 @@ router.get('/paciente/:id', async (req, res) => {
 
     res.json(consultas);
   } catch (error) {
-    console.error('Erro ao listar consultas do paciente:', error);
-    res.status(500).json({ error: 'Erro ao listar consultas' });
+    console.error("Erro ao listar consultas do paciente:", error);
+    res.status(500).json({ error: "Erro ao listar consultas" });
   }
 });
 

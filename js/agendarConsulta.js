@@ -9,13 +9,13 @@ async function agendarConsulta(event) {
 
   // Obtém o ID do médico logado
   const medicoId = localStorage.getItem("usuarioId");
-  
+
   if (!medicoId) {
     alert("Médico não identificado. Por favor, faça login novamente.");
     window.location.href = "../comum/login.html";
     return;
   }
-  
+
   // Verifica se é um médico
   const usuarioTipo = localStorage.getItem("usuarioTipo");
   if (usuarioTipo !== "medico") {
@@ -23,11 +23,11 @@ async function agendarConsulta(event) {
     window.location.href = "../comum/home.html";
     return;
   }
-  
+
   // Obtém o ID do paciente selecionado
   const pacienteSelect = document.getElementById("paciente");
   const pacienteId = pacienteSelect.value;
-  
+
   if (!pacienteId) {
     alert("Por favor, selecione um paciente.");
     return;
@@ -40,7 +40,7 @@ async function agendarConsulta(event) {
     local: document.getElementById("local").value,
     observacoes: document.getElementById("observacoes").value,
     id_medico: parseInt(medicoId),
-    id_paciente: parseInt(pacienteId)
+    id_paciente: parseInt(pacienteId),
   };
 
   try {
@@ -55,10 +55,14 @@ async function agendarConsulta(event) {
       alert("Consulta agendada com sucesso!");
       document.getElementById("consulta-form").reset();
     } else {
-      alert("Erro: " + (result.error || "Erro desconhecido ao agendar consulta"));
+      alert(
+        "Erro: " + (result.error || "Erro desconhecido ao agendar consulta")
+      );
     }
   } catch (error) {
     console.error("Erro ao agendar consulta:", error);
-    alert("Erro de conexão ao agendar consulta. Verifique sua conexão com a internet.");
+    alert(
+      "Erro de conexão ao agendar consulta. Verifique sua conexão com a internet."
+    );
   }
 }

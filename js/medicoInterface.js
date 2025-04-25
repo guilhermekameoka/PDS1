@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Verifica se há um usuário logado e se é médico
   if (!usuarioId || !usuarioNome || usuarioTipo !== "medico") {
-    alert("Acesso não autorizado ou sessão expirada. Redirecionando para a tela de login.");
+    alert(
+      "Acesso não autorizado ou sessão expirada. Redirecionando para a tela de login."
+    );
     window.location.href = "../comum/login.html";
     return;
   }
@@ -20,11 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Atualiza outros elementos da interface que precisam de personalização
-  
+
   // Configura o botão de logout para limpar o localStorage
   const logoutButton = document.getElementById("logout-button");
   if (logoutButton) {
-    logoutButton.addEventListener("click", function(e) {
+    logoutButton.addEventListener("click", function (e) {
       e.preventDefault();
       localStorage.removeItem("usuarioId");
       localStorage.removeItem("usuarioNome");
