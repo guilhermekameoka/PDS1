@@ -1,46 +1,51 @@
 document.addEventListener("DOMContentLoaded", function () {
+
   const form = document.getElementById("cadastroForm");
+  const cepInput = document.querySelector("[name=cep]");
+  const telefoneInput = document.querySelector("[name=telefone]");
+  
+  // INICIALIZAÇÃO
+  inicializarFormulario();
+  
+  /**
+   * Configura os event listeners e máscaras do formulário
+   */
+  function inicializarFormulario() {
+    // Configurar submit do formulário
+    form.addEventListener("submit", tratarSubmissaoFormulario);
+    
+    // Configurar evento de busca automática de CEP
+    if (cepInput) {
+      cepInput.addEventListener("blur", verificarCEP);
+      aplicarMascara(cepInput, "99999-999");
+    }
+    
+    // Configurar máscara para telefone
+    if (telefoneInput) {
+      aplicarMascara(telefoneInput, "(99) 99999-9999");
+    }
+  }
 
-  form.addEventListener("submit", async function (event) {
+  /**
+   * Processa a submissão do formulário
+   */
+  async function tratarSubmissaoFormulario(event) {
     event.preventDefault();
-
+    
     const usuario = obterDadosFormulario();
-
-    if (!validarCampos(usuario)) {
-       alert("Preencha todos os campos corretamente.");
-       return;
+    const resultadoValidacao = validarCampos(usuario);
+    
+    if (!resultadoValidacao.valido) {
+      alert(resultadoValidacao.mensagem);
+      return;
     }
+    
+    await enviarDadosCadastro(usuario);
+  }
 
-    try {
-      const response = await enviarCadastro(usuario);
-      let data;
-      try {
-        data = await response.json();
-      } catch (error) {
-        data = {}; // Caso a resposta não seja um JSON válido
-      }
-
-      if (response.ok) {
-        alert("Cadastro realizado com sucesso!");
-        window.location.href = "./login.html";
-      } else {
-        alert("Erro: " + (data.error || "Ocorreu um erro inesperado"));
-      }
-    } catch (error) {
-      console.error("Erro ao enviar dados:", error);
-      alert("Erro ao cadastrar. Verifique sua conexão.");
-    }
-  });
-
-  document.querySelector("[name=cep]").addEventListener("blur", function () {
-    const cep = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
-    if (cep.length === 8) {
-      buscarEndereco(cep);
-    } else {
-      alert("CEP inválido. Certifique-se de que possui 8 dígitos.");
-    }
-  });
-
+  /**
+   * Captura todos os dados do formulário
+   */
   function obterDadosFormulario() {
     return {
       nome: document.querySelector("[name=nome]").value.trim(),
@@ -56,81 +61,122 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
+  /**
+   * Valida os campos do formulário e retorna o resultado
+   */
   function validarCampos(usuario) {
+    // Verifica campos vazios
     for (const chave in usuario) {
       if (!usuario[chave]) {
-        return false;
+        return { 
+          valido: false, 
+          mensagem: `O campo ${traduzirCampo(chave)} é obrigatório.` 
+        };
       }
     }
 
+    // Valida idade
     if (isNaN(usuario.idade) || usuario.idade < 1 || usuario.idade > 120) {
-      return false;
+      return { 
+        valido: false, 
+        mensagem: "A idade deve ser um número entre 1 e 120." 
+      };
     }
 
-    if (!usuario.email.includes("@")) {
-      return false;
+    // Valida email
+    if (!usuario.email.includes("@") || !usuario.email.includes(".")) {
+      return { 
+        valido: false, 
+        mensagem: "Digite um endereço de e-mail válido." 
+      };
     }
 
+    // Valida senha
     if (usuario.senha.length < 6) {
-      return false;
+      return { 
+        valido: false, 
+        mensagem: "A senha deve ter pelo menos 6 caracteres." 
+      };
     }
 
-    // Validar o tipo de usuário
+    // Valida tipo de usuário
     if (!['medico', 'idoso', 'cuidador'].includes(usuario.tipo_usuario)) {
-      alert("Por favor, selecione um perfil válido.");
-      return false;
+      return { 
+        valido: false, 
+        mensagem: "Por favor, selecione um perfil válido (médico, idoso ou cuidador)." 
+      };
     }
 
-    return true;
+    return { valido: true };
   }
 
-  async function enviarCadastro(usuario) {
-    return fetch("http://localhost:3000/cadastro", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(usuario),
-    });
+  /**
+   * Traduz nomes de campos para exibição ao usuário
+   */
+  function traduzirCampo(campo) {
+    const traducoes = {
+      nome: "Nome",
+      idade: "Idade",
+      email: "E-mail",
+      telefone: "Telefone",
+      cep: "CEP",
+      rua: "Rua",
+      numero: "Número",
+      cidade: "Cidade",
+      senha: "Senha",
+      tipo_usuario: "Tipo de usuário"
+    };
+    
+    return traducoes[campo] || campo;
   }
 
-
-  function aplicarMascara(input, mascara) {
-    input.addEventListener("input", function () {
-      let valor = input.value.replace(/\D/g, ""); // Remove caracteres não numéricos
-      let resultado = "";
-      let indiceMascara = 0;
-
-      for (let i = 0; i < valor.length; i++) {
-        if (indiceMascara >= mascara.length) break;
-
-        if (mascara[indiceMascara] === "9") {
-          resultado += valor[i];
-          indiceMascara++;
-        } else {
-          resultado += mascara[indiceMascara];
-          indiceMascara++;
-          i--; // Reprocessa o mesmo caractere
-        }
+  /**
+   * Envia os dados do formulário para a API
+   */
+  async function enviarDadosCadastro(usuario) {
+    try {
+      const response = await fetch("http://localhost:3000/cadastro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(usuario),
+      });
+      
+      let data = {};
+      if (response.ok) {
+        data = await response.json();
       }
 
-      input.value = resultado;
-    });
+      if (response.ok) {
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "./login.html";
+      } else {
+        const mensagemErro = data.error || "Ocorreu um erro inesperado";
+        alert(`Erro no cadastro: ${mensagemErro}`);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar dados:", error);
+      alert("Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.");
+    }
   }
 
-  // Aplica a máscara ao campo de Telefone
-  const telefoneInput = document.querySelector("[name=telefone]");
-  if (telefoneInput) {
-    aplicarMascara(telefoneInput, "(99) 99999-9999");
+  /**
+   * Verifica e busca o endereço pelo CEP
+   */
+  function verificarCEP() {
+    const cep = cepInput.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+    
+    if (cep.length === 8) {
+      buscarEndereco(cep);
+    } else if (cep.length > 0) {
+      alert("CEP inválido. Certifique-se de que possui 8 dígitos.");
+    }
   }
 
-  // Aplica a máscara ao campo de CEP
-  const cepInput = document.querySelector("[name=cep]");
-  if (cepInput) {
-    aplicarMascara(cepInput, "99999-999");
-  }
-
-
+  /**
+   * Consulta a API ViaCEP e preenche os campos de endereço
+   */
   async function buscarEndereco(cep) {
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -147,9 +193,39 @@ document.addEventListener("DOMContentLoaded", function () {
       // Preencher os campos do formulário
       document.querySelector("[name=rua]").value = data.logradouro || "";
       document.querySelector("[name=cidade]").value = data.localidade || "";
+      
+      // Focar no campo número para melhorar a experiência
+      document.querySelector("[name=numero]").focus();
     } catch (error) {
       console.error("Erro ao buscar o endereço:", error);
       alert("Não foi possível buscar o endereço. Verifique o CEP e tente novamente.");
     }
+  }
+
+  /**
+   * Aplica máscara de formatação a campos de input
+   */
+  function aplicarMascara(input, mascara) {
+    input.addEventListener("input", function () {
+      let valor = input.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+      let resultado = "";
+      let indiceMascara = 0;
+
+      for (let i = 0; i < valor.length && indiceMascara < mascara.length; i++) {
+        // Se o caractere atual da máscara for um caractere especial (não é '9')
+        while (mascara[indiceMascara] !== '9' && indiceMascara < mascara.length) {
+          resultado += mascara[indiceMascara];
+          indiceMascara++;
+        }
+
+        // Adiciona o dígito do valor na posição onde a máscara tem '9'
+        if (indiceMascara < mascara.length) {
+          resultado += valor[i];
+          indiceMascara++;
+        }
+      }
+
+      input.value = resultado;
+    });
   }
 });
