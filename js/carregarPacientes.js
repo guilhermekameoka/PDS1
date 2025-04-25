@@ -48,19 +48,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error("Erro ao carregar pacientes:", error);
 
-    // Em caso de erro, adiciona opções de exemplo para teste
-    const pacientesTeste = [
-      { id: 1, nome: "Francisco Silva" },
-      { id: 2, nome: "Vilma Oliveira" },
-      { id: 3, nome: "João Pereira" },
-    ];
-
-    pacientesTeste.forEach((paciente) => {
-      const option = document.createElement("option");
-      option.value = paciente.id;
-      option.textContent = paciente.nome;
-      pacienteSelect.appendChild(option);
-    });
   } finally {
     // Reativa o select após carregar os dados
     pacienteSelect.disabled = false;
