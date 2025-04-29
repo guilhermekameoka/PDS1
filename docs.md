@@ -72,8 +72,8 @@ backend/
 ### **Configuração do Ambiente**
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/saude-senior.git
-   cd saude-senior/backend
+   git clone https://github.com/guilhermekameoka/PDS1.git
+   cd PDS1/backend
    ```
 
 2. Renomeie o arquivo `exemplo.env` para `.env`:
@@ -86,7 +86,7 @@ backend/
    DB_HOST=localhost
    DB_USER=seu_usuario
    DB_PASSWORD=sua_senha
-   DB_NAME=saude_senior
+   DB_NAME=PDS1
    PORT=3000
    ```
 
