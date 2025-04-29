@@ -1,0 +1,55 @@
+services:
+  # Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: saude-senior-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=db
+    depends_on:
+      - db
+    volumes:
+      - ./frontend:/app/frontend
+      - ./assets:/app/assets
+      - ./js:/app/js
+      - ./backend/config.js:/app/backend/config.js
+      - ./backend/server.js:/app/backend/server.js
+      - ./backend/database:/app/backend/database
+      - ./backend/middlewares:/app/backend/middlewares
+      - ./backend/routes:/app/backend/routes
+      - ./backend/utils:/app/backend/utils
+    networks:
+      - saude-senior-network
+
+  # MySQL
+  db:
+    image: mysql:9.2
+    container_name: saude-senior-mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    env_file:
+      - ./.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - mysql-data:/var/lib/mysql
+    networks:
+      - saude-senior-network
+
+volumes:
+  mysql-data:
+
+networks:
+  saude-senior-network:
+    driver: bridge
