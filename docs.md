@@ -6,9 +6,10 @@
 3. [Configuração Inicial](#configuração-inicial)
 4. [Rotas da API](#rotas-da-api)
 5. [Detalhamento Técnico dos Componentes](#detalhamento-técnico-dos-componentes)
-6. [Segurança](#segurança)
-7. [Solução de Problemas Comuns](#solução-de-problemas-comuns)
-8. [Considerações Finais](#considerações-finais)
+6. [Configuração e Execução com Docker](#configuração-e-execução-com-docker)
+7. [Segurança](#segurança)
+8. [Solução de Problemas Comuns](#solução-de-problemas-comuns)
+9. [Considerações Finais](#considerações-finais)
 
 ## Introdução
 O backend do sistema Saúde Sênior foi desenvolvido utilizando Node.js e Express.js, com um banco de dados MySQL para armazenamento de dados. Ele fornece uma API RESTful para gerenciar usuários (médicos, idosos e cuidadores), medicamentos, consultas e autenticação.
@@ -1517,6 +1518,251 @@ module.exports = {
   medicamentoSchema,
   consultaSchema
 };
+```
+
+## Configuração e Execução com Docker
+
+O sistema está configurado para ser executado facilmente em ambiente Docker, garantindo consistência e facilitando a implantação em qualquer ambiente.
+
+### **Arquivos de Configuração Docker**
+
+#### docker-compose.yml
+Este arquivo define os serviços, redes e volumes necessários para executar a aplicação completa:
+
+```yaml
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    image: pds1-backend
+    container_name: saude-senior-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - ./js:/app/js
+      - ./assets:/app/assets
+    environment:
+      - DB_HOST=db
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - PORT=${PORT}
+    networks:
+      - saude-senior-network
+    depends_on:
+      - db
+
+  db:
+    image: mysql:9.2
+    container_name: saude-senior-mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - saude-senior-network
+
+networks:
+  saude-senior-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+```
+
+#### Dockerfile
+Este arquivo define como a imagem do backend será construída:
+
+```dockerfile
+FROM node:20-alpine
+
+# Instalar dependências necessárias para compilação de módulos nativos
+RUN apk add --no-cache make gcc g++ python3
+
+WORKDIR /app
+
+# Copiar package.json e package-lock.json
+COPY backend/package*.json ./
+
+# Remover bcrypt e instalar bcryptjs como alternativa
+RUN if grep -q "bcrypt" package.json; then \
+    npm uninstall bcrypt; \
+    npm install bcryptjs; \
+    fi
+
+# Instalar dependências
+RUN npm install
+
+# Copiar resto dos arquivos da aplicação
+COPY . .
+
+# Expor porta da aplicação
+EXPOSE 3000
+
+# Comando para iniciar a aplicação
+CMD ["node", "backend/server.js"]
+```
+
+### **Requisitos**
+- Docker 20.10+ instalado
+- Docker Compose 2.0+ instalado
+- Git para clonar o repositório
+
+### **Passo a Passo Detalhado para Execução**
+
+#### 1. Preparação do Ambiente
+Clone o repositório e navegue para a pasta do projeto:
+```bash
+git clone https://github.com/guilhermekameoka/PDS1.git
+cd PDS1
+```
+
+#### 2. Configuração das Variáveis de Ambiente
+Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+
+```env
+DB_HOST=db
+DB_USER=guilhermekameoka
+DB_PASSWORD=Yokosukamisawa@1850
+DB_NAME=PDS1
+MYSQL_ROOT_PASSWORD=root
+PORT=3000
+```
+
+Estas variáveis serão utilizadas pelo Docker Compose para configurar os containers.
+
+**Observações importantes:**
+- `DB_HOST` deve ser `db`, que é o nome do serviço MySQL no docker-compose.yml
+- As credenciais de banco de dados aqui definidas são apenas para desenvolvimento. Use senhas fortes em ambiente de produção.
+
+#### 3. Construção e Inicialização dos Containers
+
+Execute o comando para construir e iniciar os containers em modo detached (em segundo plano):
+```bash
+docker compose up -d
+```
+
+Este comando realizará as seguintes operações:
+- Construir a imagem do backend a partir do Dockerfile
+- Baixar a imagem do MySQL, se necessário
+- Criar a rede Docker para comunicação entre os containers
+- Criar o volume para persistência dos dados do MySQL
+- Iniciar os containers
+- Executar o script schema.sql para inicializar o banco de dados
+
+#### 4. Verificação dos Logs (Opcional)
+
+Para verificar se os serviços estão funcionando corretamente, você pode verificar os logs:
+
+```bash
+# Logs do backend
+docker logs saude-senior-backend
+
+# Logs do MySQL
+docker logs saude-senior-mysql
+```
+
+#### 5. Acesso à Aplicação
+
+Após a inicialização dos containers, a aplicação estará disponível em:
+```
+http://localhost:3000
+```
+
+### **Estrutura de Diretórios em Docker**
+
+Os volumes definidos no docker-compose.yml mapeiam os seguintes diretórios:
+
+- `./backend:/app/backend`: Código-fonte do backend
+- `./frontend:/app/frontend`: Código-fonte do frontend
+- `./js:/app/js`: Arquivos JavaScript do cliente
+- `./assets:/app/assets`: Recursos estáticos (imagens, etc.)
+- `mysql-data:/var/lib/mysql`: Dados persistentes do MySQL
+
+Esta configuração permite que você faça alterações nos arquivos locais e as veja refletidas imediatamente no container.
+
+### **Comandos Docker Úteis**
+
+#### Visualizar containers em execução:
+```bash
+docker ps
+```
+
+#### Reiniciar containers:
+```bash
+docker compose restart
+```
+
+#### Parar containers sem remover dados:
+```bash
+docker compose stop
+```
+
+#### Parar e remover containers e redes, mas manter volumes:
+```bash
+docker compose down
+```
+
+#### Parar e remover tudo, incluindo volumes (limpa todos os dados):
+```bash
+docker compose down -v
+```
+
+#### Acessar shell do container:
+```bash
+# Shell no container do backend
+docker exec -it saude-senior-backend sh
+
+# Shell no container MySQL
+docker exec -it saude-senior-mysql bash
+```
+
+### **Considerações Especiais para Docker**
+
+#### Adaptação de bcrypt para bcryptjs
+Devido a problemas de compatibilidade entre arquiteturas no módulo nativo bcrypt, a configuração Docker substitui automaticamente o bcrypt pelo bcryptjs, que é uma implementação puramente em JavaScript do mesmo algoritmo. Esta alteração é transparente para a aplicação.
+
+#### Modificações no Schema do MySQL
+Os valores ENUM no campo `frequencia` da tabela `medicamentos` foram ajustados para evitar problemas com caracteres especiais:
+- Valores aceitos: `Diario`, `Semanal`, `Mensal` (note a ausência de acento em "Diario")
+
+Estas alterações são necessárias para garantir a compatibilidade com o ambiente Docker.
+
+### **Problemas Comuns em Docker**
+
+#### MySQL não inicializa corretamente:
+Verifique se não há outro serviço usando a porta 3306 no host. Se necessário, altere a porta de mapeamento no docker-compose.yml:
+```yaml
+ports:
+  - "3307:3306"  # Alterado para usar a porta 3307 no host
+```
+
+#### Erro de permissão em volumes:
+Em alguns sistemas Linux, pode ser necessário ajustar permissões:
+```bash
+sudo chown -R 999:999 ./mysql-data
+```
+
+#### Erro ao conectar ao banco de dados:
+Se o backend não conseguir se conectar ao MySQL, verifique se o serviço MySQL está totalmente inicializado. Às vezes é necessário aguardar alguns segundos após o `docker compose up`.
+
+#### Erros com módulos nativos:
+Se encontrar problemas com módulos nativos (como erros relacionados ao bcrypt), verifique os logs para mais detalhes e considere reconstruir a imagem:
+```bash
+docker compose down
+docker compose build --no-cache
+docker compose up -d
 ```
 
 ## Segurança

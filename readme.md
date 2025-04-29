@@ -19,6 +19,7 @@
 - [Instalação](#-instalação)
 - [Configuração](#️-configuração-das-variáveis-de-ambiente)
 - [Executando o Projeto](#️-executando-o-projeto)
+- [Executando com Docker](#-executando-com-docker)
 - [Utilizando o Sistema](#-utilizando-o-sistema)
 - [API Backend](#-funcionalidades-do-backend)
 - [Contribuição](#-contribuição)
@@ -69,6 +70,7 @@ Desta forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ### Stack Técnico
 - **Front-end:** 
@@ -82,6 +84,10 @@ Desta forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
   
 - **Banco de Dados:** 
   - MySQL para armazenamento de dados estruturados
+  
+- **Implantação e Infraestrutura:**
+  - Docker para containerização e ambiente consistente
+  - AWS para hospedagem em nuvem
   
 - **Segurança:** 
   - Criptografia de senhas com bcrypt
@@ -193,6 +199,101 @@ npm run start
 ```
 
 Este comando iniciará o servidor em modo de desenvolvimento. Você poderá acessar a aplicação em `http://localhost:3000`.
+
+## 🐳 Executando com Docker
+
+A aplicação pode ser facilmente executada usando Docker, que garante um ambiente consistente em qualquer sistema operacional.
+
+### Pré-requisitos para Docker
+- [Docker](https://www.docker.com/get-started) instalado em seu sistema
+- [Docker Compose](https://docs.docker.com/compose/install/) instalado em seu sistema
+
+### Passos para executar com Docker
+
+#### 1. Clone o repositório:
+```sh
+git clone https://github.com/guilhermekameoka/PDS1.git
+cd PDS1
+```
+
+#### 2. Configure as variáveis de ambiente:
+Crie um arquivo `.env` na raiz do projeto baseado no arquivo `backend/exemplo.env`:
+
+```sh
+cp backend/exemplo.env .env
+```
+
+Em seguida, edite o arquivo `.env` com suas configurações. É importante alterar o valor de `DB_HOST` para `db`, que é o nome do serviço MySQL no Docker Compose:
+
+```env
+DB_HOST=db
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+DB_NAME=PDS1
+MYSQL_ROOT_PASSWORD=sua_senha_root
+PORT=3000
+```
+
+#### 3. Inicie os containers Docker:
+```sh
+docker compose up -d
+```
+
+Este comando:
+- Cria um container para o backend Node.js
+- Cria um container para o MySQL
+- Configura a rede para comunicação entre os containers
+- Configura volumes para persistência de dados
+- Inicializa o banco de dados com as tabelas necessárias
+
+#### 4. Verificar os logs dos containers (opcional):
+```sh
+docker logs saude-senior-backend
+```
+ou
+```sh
+docker logs saude-senior-mysql
+```
+
+#### 5. Acesse a aplicação:
+Após iniciar os containers, a aplicação estará disponível em:
+```
+http://localhost:3000
+```
+
+#### 6. Parar os containers:
+Para parar os containers sem remover os dados:
+```sh
+docker compose stop
+```
+
+Para parar e remover os containers e redes (mantendo os volumes de dados):
+```sh
+docker compose down
+```
+
+Para remover completamente todos os containers, redes e volumes:
+```sh
+docker compose down -v
+```
+
+### Solução de Problemas com Docker
+
+Se encontrar erros ao executar a aplicação com Docker, verifique:
+
+1. **Portas já em uso**: Certifique-se de que as portas 3000 e 3306 não estejam em uso por outros serviços.
+
+2. **Erro de conexão com o banco de dados**: 
+   - Verifique se o valor de `DB_HOST` está configurado como `db` no arquivo `.env`
+   - Aguarde alguns segundos após iniciar os containers, pois o MySQL pode levar um tempo para inicializar completamente
+
+3. **Problemas com volumes persistentes**:
+   - Se houver problemas com dados inconsistentes, tente remover os volumes e recriar os containers: `docker compose down -v && docker compose up -d`
+
+4. **Erro no cadastro de medicamentos**:
+   - Se ocorrer erro 500 ao cadastrar medicamentos, verifique se o campo "frequencia" está usando um dos valores permitidos: "Diario", "Semanal" ou "Mensal" (sem acento em "Diario")
+
+---
 
 ## 👨‍🏫 Utilizando o Sistema
 

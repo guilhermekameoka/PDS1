@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { executeQuery } = require("../utils/dbhelper");
 const validate = require("../middlewares/validate");
 const { userSchema } = require("../utils/validation");
