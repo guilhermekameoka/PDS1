@@ -1863,4 +1863,4 @@ O sistema implementa diversas medidas de segurança para proteger os dados dos u
 - Monitore os logs do servidor para identificar problemas.
 - Mantenha as dependências atualizadas para evitar vulnerabilidades.
 
-*Última atualização: 12 de abril de 2025*
+*Última atualização: 29 de abril de 2025*
