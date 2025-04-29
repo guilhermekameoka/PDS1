@@ -217,10 +217,10 @@ cd PDS1
 ```
 
 #### 2. Configure as variáveis de ambiente:
-Crie um arquivo `.env` na raiz do projeto baseado no arquivo `backend/exemplo.env`:
+Crie um arquivo `.env` na raiz do projeto baseado no arquivo `backend/.env.example`:
 
 ```sh
-cp backend/exemplo.env .env
+cp backend/.env.example .env
 ```
 
 Em seguida, edite o arquivo `.env` com suas configurações. É importante alterar o valor de `DB_HOST` para `db`, que é o nome do serviço MySQL no Docker Compose:
