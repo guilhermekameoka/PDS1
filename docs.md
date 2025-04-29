@@ -1633,10 +1633,10 @@ Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
 
 ```env
 DB_HOST=db
-DB_USER=guilhermekameoka
-DB_PASSWORD=Yokosukamisawa@1850
+DB_USER=usuario
+DB_PASSWORD=senha_db
 DB_NAME=PDS1
-MYSQL_ROOT_PASSWORD=root
+MYSQL_ROOT_PASSWORD=senha_root
 PORT=3000
 ```
 
