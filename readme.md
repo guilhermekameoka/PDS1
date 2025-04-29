@@ -70,6 +70,7 @@ Desta forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ### Stack Técnico
 - **Front-end:** 
@@ -83,6 +84,10 @@ Desta forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
   
 - **Banco de Dados:** 
   - MySQL para armazenamento de dados estruturados
+  
+- **Implantação e Infraestrutura:**
+  - Docker para containerização e ambiente consistente
+  - AWS para hospedagem em nuvem
   
 - **Segurança:** 
   - Criptografia de senhas com bcrypt
