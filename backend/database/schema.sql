@@ -17,12 +17,14 @@ CREATE TABLE IF NOT EXISTS medicamentos (
     nome VARCHAR(255) NOT NULL,
     data_inicial DATE NOT NULL,
     data_final DATE NOT NULL,
-    frequencia ENUM('Diário', 'Semanal', 'Mensal') NOT NULL,
+    frequencia ENUM('Diario', 'Semanal', 'Mensal') NOT NULL,
     hora TIME NOT NULL,
     dose VARCHAR(50) NOT NULL,
     id_usuario INT,
+    id_medico INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_medico) REFERENCES usuarios(id)
 );
 
 CREATE TABLE IF NOT EXISTS consultas (
