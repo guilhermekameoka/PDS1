@@ -1,7 +1,6 @@
-FROM node:20-alpine
+FROM node:slim
 
-
-RUN apk add --no-cache make gcc g++ python3
+RUN apk add --no-cache g++ gcc make python3
 
 WORKDIR /app
 
@@ -12,9 +11,8 @@ COPY backend/package*.json ./
 RUN if grep -q "bcrypt" package.json; then \
     npm uninstall bcrypt; \
     npm install bcryptjs; \
-    fi
-
-RUN npm install
+    fi && \
+    npm install
 
 COPY . .
 
