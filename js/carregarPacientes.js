@@ -18,8 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Busca a lista de pacientes (idosos) da API
     const response = await fetch("http://localhost:3000/usuarios/idosos", {
       method: "GET",
-      headers: {
+      headers: { 
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("jwt") || ""}`
       },
     });
 

@@ -1,11 +1,12 @@
 const express = require("express");
 const { executeQuery } = require("../utils/dbhelper");
+const { authenticateToken, authorizeRoles } = require("../middlewares/auth");
 
 const router = express.Router();
 router.use(express.json());
 
 // Rota para buscar todos os usuários do tipo idoso
-router.get("/idosos", async (req, res) => {
+router.get("/idosos", authorizeRoles("medico"), async (req, res) => {
   try {
     const sql = "SELECT id, nome FROM usuarios WHERE tipo_usuario = 'idoso'";
     const usuarios = await executeQuery(sql, []);

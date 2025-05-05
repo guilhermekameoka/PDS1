@@ -39,7 +39,10 @@ async function cadastrarMedicamento(event) {
   try {
     const response = await fetch("http://localhost:3000/medicamento", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("jwt") || ""}`
+      },
       body: JSON.stringify(dados),
     });
 

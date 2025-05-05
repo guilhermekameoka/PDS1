@@ -2,9 +2,10 @@ const express = require("express");
 const { executeQuery } = require("../utils/dbhelper");
 const router = express.Router();
 router.use(express.json());
+const { authenticateToken, authorizeRoles } = require("../middlewares/auth");
 
-// Rota para excluir um medicamento
-router.delete("/:id", async (req, res) => {
+// Rota para excluir um medicamento (apenas médicos)
+router.delete("/:id", authorizeRoles("medico"), async (req, res) => {
   try {
     const medicamentoId = req.params.id;
 
@@ -30,5 +31,6 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: "Erro ao excluir medicamento" });
   }
 });
+
 
 module.exports = router;

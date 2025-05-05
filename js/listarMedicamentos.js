@@ -30,7 +30,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Faz a requisição para a API
       const response = await fetch(
-        `http://localhost:3000/medicamento/usuario/${usuarioId}`
+        `http://localhost:3000/medicamento/usuario/${usuarioId}`,
+        {headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("jwt") || ""}`
+        },}
       );
 
       if (!response.ok) {
@@ -107,8 +111,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         `http://localhost:3000/excluir-medicamento/${medicamentoId}`,
         {
           method: "DELETE",
-          headers: {
+          headers: { 
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("jwt") || ""}`
           },
         }
       );

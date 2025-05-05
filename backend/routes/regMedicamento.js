@@ -3,12 +3,13 @@ const { executeQuery } = require("../utils/dbhelper");
 const validate = require("../middlewares/validate");
 const { medicamentoSchema } = require("../utils/validation");
 const MESSAGES = require("../utils/messages");
+const { authenticateToken, authorizeRoles } = require("../middlewares/auth");
 
 const router = express.Router();
 router.use(express.json());
 
 // Rota para cadastrar medicamento
-router.post("/", validate(medicamentoSchema), async (req, res) => {
+router.post("/", validate(medicamentoSchema),authorizeRoles("medico"), async (req, res) => {
   try {
     const {
       nome,
@@ -58,7 +59,7 @@ router.post("/", validate(medicamentoSchema), async (req, res) => {
 });
 
 // Rota para listar medicamentos de um usuário
-router.get("/usuario/:id", async (req, res) => {
+router.get("/usuario/:id",authorizeRoles("medico", "idoso"), async (req, res) => {
   try {
     const userId = req.params.id;
 

@@ -135,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.setItem("usuarioId", data.usuario.id);
           localStorage.setItem("usuarioNome", data.usuario.nome);
           localStorage.setItem("usuarioTipo", data.usuario.tipo || "idoso");
+          localStorage.setItem("jwt", data.token);
 
           // Mostra mensagem de sucesso
           mostrarMensagem(

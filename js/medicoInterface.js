@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.removeItem("usuarioId");
       localStorage.removeItem("usuarioNome");
       localStorage.removeItem("usuarioTipo");
+      localStorage.removeItem("jwt");
       window.location.href = "../comum/login.html";
     });
   }

@@ -1,0 +1,20 @@
+{
+  "name": "pds1",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">\r   <img src=\"./assets/Logo sem fundo.png\" alt=\"Logo do Projeto\" width=\"300px\">",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guilhermekameoka/PDS1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guilhermekameoka/PDS1/issues"
+  },
+  "homepage": "https://github.com/guilhermekameoka/PDS1#readme"
+}

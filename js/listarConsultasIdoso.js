@@ -36,7 +36,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Faz a requisição para a API
       const response = await fetch(
-        `http://localhost:3000/consulta/paciente/${idosoId}`
+        `http://localhost:3000/consulta/paciente/${idosoId}`,
+        {
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("jwt") || ""}`
+          },
+        }
       );
 
       if (!response.ok) {

@@ -46,7 +46,10 @@ async function agendarConsulta(event) {
   try {
     const response = await fetch("http://localhost:3000/consulta", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("jwt") || ""}`//"authorization": localStorage.getItem("jwt") || ""
+      },
       body: JSON.stringify(dados),
     });
 
