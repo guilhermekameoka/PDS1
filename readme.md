@@ -41,7 +41,7 @@ Desta forma, o aplicativo facilita a comunicação entre todos os envolvidos e m
 
 ---
 
-## 📱 Demonstração
+## 📱 Demonstração do Projeto
 
 [Protótipo de Telas no Figma](https://www.figma.com/design/xOfVNmNg7hMd7MRAj29pjU/IHC?node-id=6-0&m=dev&t=f4OE9q94xtLv6NHp-1)
 
